@@ -1,0 +1,30 @@
+<ul class="like_list" >
+                <li class="like_list_bg">
+				<ul>
+				<li><b>Category</b></li>
+				<li><b>Sub-Category </b></li>
+				<li class="like_widthmng"><b>Rank</b></li>
+				<li class="like_widthmng"><b>Action</b></li>
+				</ul>
+				</li>
+                                
+                <% if @show_interests.count == 0 %>
+                    <li>Please select interest.</li>
+                <% else %>
+                   <ol id="task_list">
+                <% for i in 0..@show_interests.length-1 do %>
+                      <li class="c_bg" id="task_<%= @show_interests[i].fetch("id") %>">
+                    <ul>
+                    <li><%= @show_interests[i].fetch("category_name") %></li>
+                    <li><%= @show_interests[i].fetch("subcategory_name") %></li>
+                    <li class="like_widthmng"><%= i+1 %></li>
+                    <li class="like_widthmng">
+					<a href="javascript:void(0)" title="Delete"><%= image_tag'closelabel.png', :onclick => "delete_interest('+ #{@show_interests[i].fetch("id")} +')" %></a>
+					</li>
+                    </ul>
+                    </li>
+                <% end %>
+                  </ol>
+                <% end %>
+            </ul>
+<p style ="color:#000;font-style:Italic " >“Note: You can change the ranks by dragging and dropping your chosen interests combinations.“ </p>

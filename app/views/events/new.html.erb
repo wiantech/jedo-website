@@ -1,0 +1,257 @@
+
+<script type="text/javascript">
+  // validations for create event page
+  $(document).ready(function() {
+    $('#one_custom_error_label').hide();
+  
+    jQuery.validator.addMethod("requiredUrl", function(value, element, param) {
+    var expression = /^(http:\/\/|https:\/\/)?((([\w-]+\.)+[\w-]+)|localhost)(\/[\w- .\/?%&=]*)?/i;
+    return expression.test(value);
+    }, jQuery.validator.messages.url);
+   $('b#doller').hide();
+   
+   $('#event_type').change(function(){
+     var evn_type=$('#event_type').val();
+      if (evn_type=='Private')
+      {
+       $('p#event_category').hide();
+      }else
+      {
+      $('p#event_category').show();
+      }
+
+   });
+
+    jQuery.validator.addMethod("greaterThan", function(value, element, params) {
+          valueArr=value.split('-');
+          paramsArr=$(params).val().split('-');
+            if (!/Invalid|NaN/.test(new Date(valueArr[2],valueArr[1],valueArr[0]))) {
+             return new Date(valueArr[2],valueArr[1],valueArr[0]) >= new Date(paramsArr[2],paramsArr[1],paramsArr[0]);
+            }
+            return false;
+        },'End date must be greater than start date');
+        
+  var validator = $("#new_event").bind("invalid-form.validate", function() {
+                           $("#one_custom_error_label").html("Please correct the error(s) shown below.");
+                 
+                        
+		} ).validate({
+    errorContainer: $("#one_custom_error_label"),
+
+    rules: {
+
+        "event[title]": {
+          required: true,
+          maxlength: 40
+        } ,
+        "event[description]": {
+          required: true,
+          maxlength: 400
+        },
+        "event[email]": {
+          required: true,
+          email:true
+        },
+        "event_category[category_id]": {
+         required: function(){
+            if ($("#event_type").val()=="Public")
+            {
+              return true;
+            }else
+            {
+              return false;
+            }
+
+          }
+        },
+        "event_category[subcategory_id]": {
+          required: function(){
+            if ($("#event_type").val()=="Public")
+            {
+              return true;
+            }else
+            {
+              return false;
+            }
+
+          }
+        },
+        "event_location[flat]":{
+          required:true
+        },
+        "event_location[street_name]": {
+          required: true
+        },
+        "event_location[city_name]":{
+          required: true
+        },
+        "event_location[country_id]": {
+          required: true
+        },
+        "event_location[state_id]": {
+          required: true
+        },
+        "event[phone]": {
+          digits: true,
+          minlength: 10,
+          maxlength: 10
+        },
+        "event[mobile]": {
+          digits: true,
+          minlength: 10,
+          maxlength: 10
+        },
+        "event_location[post_code]": {
+          required: true,
+          digits: true,
+          maxlength: 4,
+          minlength: 4
+        },
+        "event[start_date]":{
+          required: true
+        },
+        "event[start_time_hours]": {
+          required: true,
+          range: [1,12]
+        },
+        "event[start_time_minutes]": {
+          required: true,
+          range: [0,59]
+        },
+        "event[end_date]":{
+          required: true ,
+          greaterThan: "#start_date"
+        },
+        "event[end_time_hours]": {
+          required: true,
+          range: [1,12]
+        },
+        "event[end_time_minutes]": {
+          required: true,
+          range: [0,59]
+        },
+        "event[url]": {
+          requiredUrl: true
+        },
+        "event[capacity]":{
+          required: true,
+          digits: true,
+          maxlength: 6,
+          minlength: 2
+        },
+        "event[cost]": {
+          digits: true,
+          minlength: 2,
+          required: function(){
+            if ($("#cost_type").val()=="Paid")
+            {
+              return true;
+            }else
+            {
+              return false;
+            }
+
+          }
+
+        }
+
+      } ,
+
+      messages: {
+        "event[title]":{
+          required: "Title can not be blank.",
+          maxlength: "Title can not be more than 40 characters."
+        },
+        "event[email]": {
+          required: "Email can not be blank.",
+          email:"Email format is not proper."
+        },
+
+        "event[description]":{
+          required: "Description can not be blank.",
+          maxlength: "Description can not be more than 400 characters."
+        },
+        "event_category[category_id]":{
+          required: "Category can not be left unselected."
+        },
+        "event_category[subcategory_id]":{
+          required: "Subcategory can not be left unselected."
+        },
+        "event_location[flat]": {
+          required: "Unit/Flat no. can not be blank."
+        },
+        "event_location[street_name]": {
+          required: "Street Name can not be blank."
+        },
+        "event_location[city_name]": {
+          required: "City Name can not be blank."
+        },
+        "event_location[country_id]": {
+          required: "Country can not be left unselected."
+        },
+        "event_location[state_id]": {
+          required: "State can not be left unselected."
+        },
+        "event_location[post_code]": {
+          required: "Post code can not be blank.",
+          digits: "Post code should contain numbers only.",
+          maxlength: "Should be exactly 4 digits.",
+          minlength: "Should be exactly 4 digits."
+        },
+        "event[phone]": {
+          digits: "Phone no. should contain numbers only.",
+          maxlength: "Should be exactly 10 digits.",
+          minlength: "Should be exactly 10 digits."
+        } ,
+        "event[mobile]": {
+          digits: "Mobile no. should contain numbers only.",
+          minlength: "Should be exactly 10 digits.",
+          maxlength: "Should be exactly 10 digits."
+        } ,
+        "event[start_date]": {
+          required: "Start date can not be blank."
+        },
+        "event[start_time_hours]": {
+          required: "Start time hours can not be blank.",
+          range: "Start time hours value between 1 and 12."
+        },
+        "event[start_time_minutes]": {
+          required: "Start time minutes can not be blank.",
+          range: "Start time minutes value between 0 and 59."
+        },
+        "event[end_date]": {
+          required: "End date can not be blank."
+        },
+        "event[end_time_hours]": {
+          required: "End time hours can not be blank.",
+          range: "End time hours value between 1 and 12."
+        },
+        "event[end_time_minutes]": {
+          required: "End time minutes can not be blank.",
+          range: "End time minutes value between 0 and 59."
+        },
+        "event[url]": {
+          url: "Enter valid URL."
+
+        },
+        "event[capacity]": {
+          required: "Capacity can not be blank.",
+          digits: "Capacity should be contain numbers only.",
+          maxlength: "Capacity should not be more than 6 digits.",
+          minlength: "Capacity should not be less than 2 digits."
+
+        },
+        "event[cost]": {
+          required: "Cost can not be blank.",
+          digits: "Cost should be contain numbers only.",
+          minlength: "Cost should not be less than 2 digits."
+
+        }
+      }
+
+    });
+  });
+
+</script>
+
+<%= render 'form' %>

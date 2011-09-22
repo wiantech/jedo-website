@@ -1,0 +1,171 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#one_custom_error_label').hide();
+  var validator = $("#user_new").bind("invalid-form.validate", function() {
+		 $("#one_custom_error_label").html("Please correct the error(s) shown below.");
+		}).validate({
+         errorContainer: $("#one_custom_error_label"),
+        rules: {
+        "user[first_name]": {
+        required: true
+        } ,
+
+        "user[last_name]": {
+        required: true
+        } ,
+
+        "user[email]": {
+        required: true,
+        email: true ,
+        remote: "check_email.json"
+        } ,
+
+        "user[email_confirm]": {
+        required: true,
+        email: true ,
+        equalTo: "#user_email1"
+        } ,
+
+        "user[password]": {
+        required: true,
+        minlength: 6
+        },
+
+        "user[password_confirmation]": {
+        required: true,
+        minlength: 6,
+        equalTo: "#password1"
+        },
+
+        "location[postcode]" : {
+        required: true,
+        accept: "[0-9]+",
+        minlength: 4,
+        maxlength: 4
+
+        } ,
+
+        "captcha": {
+        required: true ,
+        remote: "validate_captcha.json"
+        },
+
+        "termsandcondition": {
+        required: true
+        }
+
+        },
+        messages: {
+        "user[first_name]": {
+        required: "First Name cannot be blank."
+
+        } ,
+
+        "user[last_name]": {
+        required: "Last Name cannot be blank."
+        } ,
+
+        "user[email]": {
+        required: "Email cannot be blank.",
+        email: "Email format is not proper." ,
+        remote: "Email has already been taken."
+        } ,
+        "user[email_confirm]": {
+        required: "Email cannot be blank.",
+        email: "Email format is not proper." ,
+        equalTo: "Email is different."
+        } ,
+
+        "user[password]": {
+        required: "Password cannot be blank.",
+        minlength: "Password should be at least 6 characters long."
+        },
+        "user[password_confirmation]": {
+        required: "Confirm Password field cannot be blank.",
+        minlength: "Password should be at least 6 characters long.",
+        equalTo: "Password not matching."
+        },
+
+        "location[postcode]" : {
+        required: "Postcode cannot be blank.",
+        accept: "Should be numbers only.",
+        minlength: "Should be 4 digits long.",
+        maxlength: "Should be 4 digits long."
+
+        } ,
+        "captcha": {
+        required: "Didn't match the word verification." ,
+        remote: "The secret image and code were different"
+
+        } ,
+
+        "termsandcondition": "Please accept Terms and Conditions."
+
+        }
+    });
+});
+</script>
+<script type="text/javascript">
+$('#termsandcondition2').popupWindow({
+    height:500,
+    width:800,
+    top:50,
+    left:50
+});
+</script>
+<div class="all_forms_mng">
+<h4 class="head">Registration</h4>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name) ,:html=>{:class=>"all_forms" }) do |f| %>
+<%= devise_error_messages! %>
+<div class="message message_error" id="one_custom_error_label">Please correct the error(s) shown below.</div>
+<fieldset>
+        <p>
+        <span class="field_half">
+        <label>First name<span class="mandatory">*</span></label>
+        <span class="tt"><%= text_field(:user , :first_name ,:class=>'required')  %></span>
+        </span>
+        <span class="field_half">
+        <label>Last name<span class="mandatory">*</span></label>
+        <span class="tt"><%= text_field(:user, :last_name ,:class=>'required')  %></span>
+        </span>
+        </p>
+        <p>
+        <span class="field_half">
+        <label>Email<span class="mandatory">*</span></label>
+        <span class="tt"><%= text_field(:user, :email ,:class=>'required',:id=>'user_email1')  %></span>
+        </span>
+        <span class="field_half">
+        <label>Confirm Mail<span class="mandatory">*</span></label>
+        <span class="tt"><%= text_field(:user, :email_confirm ,:class=>'required')  %></span>
+        </span>
+        </p>
+        <p>
+        <span class="field_half">
+        <label>Password<span class="mandatory">*</span></label>
+        <span class="tt"><%= password_field(:user, :password ,:class=>'required',:id=>'password1')  %></span>
+        </span>
+        <span class="field_half">
+        <label>Password confirmation<span class="mandatory">*</span></label>
+        <span class="tt"><%= password_field(:user ,:password_confirmation ,:class=>'required')  %></span>
+        </span>
+        </p>
+        <p>
+        <span class="field_half">
+        <label>Postcode<span class="mandatory">*</span></label>
+        <span class="tt"><%= text_field(:location ,:postcode ,:class=>'required', :maxlength => 4)  %>
+        <label class="tandc">&nbsp;&nbsp;
+		<a class="t_and_c" href="<%=termsandconditions_path%>"  onclick="window.open(this.href, 'windowName', 'width=400, height=400, left=24, top=24, scrollbars, resizable'); return false;" target="_blank">Terms and Condition</a><span  class="m_check mandatory">*</span>&nbsp;&nbsp;
+		<input class="tnccheck tncchecke" id="termsandcondition" name="termsandcondition" type="checkbox" value="1" />
+	</label>
+        </span>
+        </span>
+        <span class="field_half">
+        <label>Enter security code as given below:<span class="mandatory">*</span></label>
+        <span class="tt"><%=show_simple_captcha%><%#= recaptcha_tags %></span>
+        </span>
+        </p>
+      </fieldset>
+      <center><input type="submit" class="button" value="Create User" name="commit" id="user_submit"/></center>
+<% end %>
+
+</div>

@@ -1,0 +1,44 @@
+<!--main container start-->
+     <div class="content">
+		<div class="left r_pass_div">
+        <div class="rounded left_box f_p_h_mng">
+        <div class="round-wrapper">
+        <span class="tl"></span>
+        <span class="top-color"></span>
+        <span class="tr"></span>
+        <div class="area-cont">
+        <div class="area-cont_mng f_pass">
+       <h3>Forgot your password?</h3>
+         <!-- Sign in box-->
+         <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+         <% if flash[:notice].present? %>
+         <span class="c_error"><%=flash[:notice]%></span><% end %>           
+         <p><br />
+          <span class="f_l">&nbsp;<%= f.label :email %></span><br />      
+          <span class="tt f_pass_e"><%= f.email_field :email %>
+          </span>
+          </p>
+           <br class="clear" />
+          <p>
+          <span>
+            <%= f.submit "reset password" ,:class=>"button" %>
+          </span>         
+          </p><br />
+		  <p><a style="float:left" href="<%=root_path%>" title="Login">Sign In</a><span style="font-size:12px;float:right;"><%= link_to "Facebook Sign in", user_omniauth_authorize_path(:facebook) %></span></p>
+		  
+          <% end %>
+        <!-- End of Sign in box -->
+        <br clear="all" />
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+        </div>
+        </div>
+        </div>
+
+        <!--middle container start--><!--middle container end-->
+
+    </div>
+    <!--main container end-->

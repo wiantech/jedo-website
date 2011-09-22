@@ -1,0 +1,74 @@
+<div class="dark_bg">
+<div class="menu_bg">
+<ul class="profile_tab">
+<li><a href="<%=dashboards_path%>"><span>The Week Ahead</span></a></li>
+<li><a class="active" href="<%=my_events_dashboards_path%>"><span>My Events</span></a></li>
+<li><a href="things_you_may_like.html"><span>Things You May Like</span></a></li>
+<li><a href="invites.html"><span>Invites</span></a></li>
+<li><a href="#"><span>My Friends' Events</span></a></li>
+<li><a href="#"><span>Rate It</span></a></li>
+</ul>
+<br class="clear" />
+<div class="rounded tab_content tab_content_mng">
+<div class="round-wrapper"> 
+            	<span class="tl"></span>
+                	<span class="top-color"></span>
+                <span class="tr"></span>
+                <div class="area-cont">
+                <div class="area-cont_mng">
+<h4 class="head">My Event<span class="thing_ico"></span></h4>
+<ul class="interests">
+<!-- Statrt Loop -->
+<% if !@my_events.blank? %>
+<% @my_events.each do |myEvent|  %>
+<li class="list">
+<a class="int_img" href="#">
+   <% if myEvent.event.exists?%> <%= image_tag myEvent.event.url(:thumb) %> <% else %><img width="107" height="80" alt="<%=myEvent.title %>" src="/images/no_image_available.png" />  <% end %>
+</a>
+<div class="int_cont">
+<h6><a title="" href="<%=event_details_dashboards_url(:id=>myEvent.id)%>"><%=myEvent.title%></a></h6>
+<p>Cost: <% if myEvent.cost == nil %>Free <% else%> $ <%= myEvent.cost %> <% end %></p>
+<p>Starts: <%=myEvent.start_date%> <% if myEvent.start_time_hours ==0%>00<%  else %><%= myEvent.start_time_hours%><% end %>:<% if myEvent.start_time_minutes==0%>00<%  else %><%=myEvent.start_time_minutes%> <% end %>
+    <%=myEvent.start_time_type%></p>
+<p class="int_pmng"><img src="/images/int_img_1.jpg" width="30" height="30" alt="users" /><img src="/images/int_img_2.jpg" width="30" height="30" alt="users" /><img src="/images/int_img_3.jpg" width="30" height="30" alt="users" /><img src="/images/int_img_4.jpg" width="30" height="30" alt="users" /><img src="/images/int_img_5.jpg" width="30" height="30" alt="users" /> <a href="<%=event_details_dashboards_url(:id=>myEvent.id)%>">...More</a></p>
+</div>
+<div class="int_cont"> 
+<p class="ww disfo">
+<%=truncate(myEvent.description, :length => 153, :separator => ' ') %>
+ <a href="<%=event_details_dashboards_url(:id=>myEvent.id)%>">Read More</a></p>
+<div class="book_sec">
+<p>Booking:  0<%#myEvent.booking%></p>
+<p>Cancelled Booking: 0</p>
+<p>Capacity: <%=myEvent.capacity%></p>
+</div>
+</div>
+<br class="clear" />
+</li>
+<% end %>
+<!-- End Loop -->
+</ul>
+
+<div class="all_bt_hold">
+<%= paginate @my_events ,:window=>6 %>
+</div>
+<br />
+<br class="clear" />
+  
+
+<% else %>
+<div  align="center">
+There is no event at this moment
+<br class="clear" />
+</div>
+<% end %>
+                 </div>
+                 </div>
+                <span class="bl"></span>
+                	<span class="bottom-color"></span>
+                <span class="br"></span>              
+            
+</div>
+</div>
+</div>
+</div>
+

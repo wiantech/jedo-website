@@ -1,0 +1,789 @@
+<script type="text/javascript">
+      // function for reload page to the same profile.
+      $(document).ready(function() {
+          if( (!$("#radio1:checked").val() && !$("#radio2:checked").val()) || ($("#radio1:checked").val()))
+          {
+              $('#sub1').show();
+              $('#sub2').hide();
+              $('#radio1').attr('checked', true);
+          }
+          else
+          {
+              $('#sub2').show();
+              $('#sub1').hide();
+              $('#radio2').attr('checked', true);
+          }
+      });
+
+    // client side validations for personel profile
+    $(document).ready(function() {
+     $('#one_custom_error_label1').hide();
+     var validator = $("#edit_user1").bind("invalid-form.validate", function() {
+		$("#one_custom_error_label1").html("Please correct the error(s) shown below.");
+		}).validate({
+             errorContainer: $("#one_custom_error_label1"),
+            rules: {
+		"user[email]": {
+                    email: true,
+		    required: true
+                } ,
+                "user[password]": {
+                    minlength: 6
+                },
+
+                "user[password_confirmation]": {
+                    minlength: 6,
+                    equalTo: "#user_password"
+                },
+
+                "user[first_name]": {
+                    required: true
+                },
+
+                "user[last_name]": {
+                    required: true
+                },
+
+                "user[alternate_email]": {
+                    email: true,
+		    required: true
+                } ,
+
+                "user[gender]": {
+		    required: true
+                } ,
+
+                "user[phone]": {
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                } ,
+
+                "user[mobile]": {
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                } ,
+
+                "user[location_attributes][flat]": {
+                    required: true
+                },
+
+                "user[location_attributes][street_number]": {
+                    required: true
+                },
+
+                "user[location_attributes][street_name]": {
+                    required: true
+                },
+
+                "user[location_attributes][city_name]": {
+                    required: true
+                },
+
+                "user[location_attributes]locations[postcode]": {
+                    required: true,
+                    digits: true,
+                    minlength: 4,
+                    maxlength: 4
+                },
+
+                "user[location_attributes][country_id]": {
+                    required: true
+                },
+
+                "user[location_attributes][state_id]": {
+                    required: true
+                },
+
+                "interest": {
+                    required: true
+                }
+
+            },
+
+            messages: {
+
+		"user[email]": {
+                    email: "Email format is not proper.",
+		    required: "Email cannot be blank."
+                } ,
+
+                "user[password]":  {
+                    minlength: "Password should be at least 6 characters long."
+                },
+                "user[password_confirmation]": {
+                    minlength: "Password should be at least 6 characters long.",
+                    equalTo: "Password not matching."
+                },
+
+                "user[first_name]": {
+                    required: "First name cannot be blank."
+                },
+
+                "user[last_name]": {
+                    required: "Last name cannot be blank."
+                },
+
+                "user[alternate_email]": {
+                    email: "Email format is not proper.",
+		    required: "Email cannot be blank."
+                } ,
+
+                 "user[gender]": {
+		    required: "Please select your gender."
+                } ,
+
+                "user[phone]": {
+                    digits: "Should be numbers only.",
+                    minlength: "Should be exactly 10 digits.",
+                    maxlength: "Should be exactly 10 digits."
+                } ,
+
+                "user[mobile]": {
+                    digits: "Should be numbers only.",
+                    minlength: "Should be exactly 10 digits.",
+                    maxlength: "Should be exactly 10 digits."
+                } ,
+
+                "user[location_attributes][flat]":  "Unit/Flat no. cannot be blank.",
+
+                "user[location_attributes][street_number]": "Street number cannot be blank.",
+
+                "user[location_attributes][street_name]": {
+                    required: "Street name cannot be blank."
+                },
+
+                "user[location_attributes][city_name]": {
+                    required: "City cannot be blank."
+                },
+
+                "user[location_attributes][postcode]": {
+                    required: "Postcode cannot be blank.",
+                    digits: "Should be numbers only.",
+                    minlength: "Should be 4 digits long.",
+                    maxlength: "Should be 4 digits long."
+                },
+
+                "user[location_attributes][country_id]": "Please select your country.",
+
+                "user[location_attributes][state_id]": "Please select your state.",
+
+                "interest": "Please select your interest."
+                }
+          });
+      });
+
+  // client side validations for organisational profile
+  $(document).ready(function() {
+      $('#one_custom_error_label2').hide();
+      jQuery.validator.addMethod("requiredUrl", function(value, element, param) {
+      var expression = /^(http:\/\/|https:\/\/)?((([\w-]+\.)+[\w-]+)|localhost)(\/[\w- .\/?%&=]*)?/i;
+      return expression.test(value);
+      }, jQuery.validator.messages.url);
+     var validator = $("#edit_user2").bind("invalid-form.validate", function() {
+		$("#one_custom_error_label2").html("Please correct the error(s) shown below.");
+		}).validate({
+              errorContainer: $("#one_custom_error_label2"),
+            rules: {
+                "organisation[name]": {
+                    required: true
+                },
+
+                "organisation[url]": {
+                    required: true,
+                    requiredUrl: true
+                },
+
+                "organisation[description]" : {
+                    required: true,
+                    maxlength: 400
+                },
+
+                "organisation[flat]" : {
+                    required: true
+                },
+
+                "organisation[street_number]" : {
+                    required: true
+                },
+
+                "organisation[street_name]" : {
+                    required: true
+                },
+
+                "organisation[city_name]" : {
+                    required: true
+                },
+
+                "organisation[postcode]" : {
+                    required: true,
+                    digits: true,
+                    minlength: 4,
+                    maxlength: 4
+                },
+
+                "organisation[country_id]" : {
+                    required: true
+                },
+
+                "organisation[state_id]" : {
+                    required: true
+                },
+
+                "user[location_attributes][flat]" : {
+                    required: true
+                },
+
+                "user[location_attributes][street_number]" : {
+                    required: true
+                },
+
+                "user[location_attributes][street_name]" : {
+                    required: true
+                },
+
+                "user[location_attributes][city_name]" : {
+                    required: true
+                },
+
+                "user[location_attributes][postcode]" : {
+                    required: true,
+                    digits: true,
+                    minlength: 4,
+                    maxlength: 4
+                },
+
+                "user[location_attributes][country_id]" : {
+                    required: true
+                },
+
+                "user[location_attributes][state_id]" : {
+                    required: true
+                },
+
+                "user[email]" : {
+                    required: true,
+                    email: true
+
+                },
+
+                "user[password]": {
+                    minlength: 6
+                },
+
+                "user[password_confirmation]": {
+                    minlength: 6,
+                    equalTo: "#user_password"
+                },
+
+                "user[first_name]" : {
+                    required: true
+                },
+
+                "user[last_name]" : {
+                    required: true
+                },
+
+                "user[phone]" : {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+
+                "user[alternate_email]": {
+                    required: true,
+                    email: true
+                } ,
+
+                "user[mobile]" : {
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                }
+            },
+
+            messages: {
+                "organisation[name]": {
+                    required: "Name cannot be blank."
+                },
+
+                "organisation[url]": {
+                    required: "Url cannot be blank.",
+                    url: "Url format is not proper."
+                },
+
+                "organisation[description]" : {
+                    required: "Description cannot be blank.",
+                    maxlength: "Letters not more than 400 alphabets."
+                },
+
+                "organisation[flat]" : {
+                    required: "Unit/Flat no.  cannot be blank."
+                },
+
+                "organisation[street_number]" : {
+                    required: "Street number cannot be blank."
+                },
+
+                "organisation[street_name]" : {
+                    required: "Street name cannot be blank."
+                },
+
+                "organisation[city_name]" : {
+                    required: "City cannot be blank."
+                },
+
+                "organisation[postcode]" : {
+                    required: "Postcode cannot be blank.",
+                    digits: "Should be numbers only.",
+                    minlength: "Should be 4 digits long.",
+                    maxlength: "Should be 4 digits long."
+
+                },
+
+                "organisation[country_id]" : {
+                    required: "Please select your country."
+                },
+
+                "organisation[state_id]" : {
+                    required: "Please select your state."
+                },
+
+                "user[location_attributes][flat]" : {
+                    required: "Unit/Flat no. cannot be blank."
+                },
+
+                "user[location_attributes][street_number]" : {
+                    required: "Street number cannot be blank."
+                },
+
+                "user[location_attributes][street_name]" : {
+                    required: "Street name cannot be blank."
+                },
+
+                "user[location_attributes][city_name]" : {
+                    required: "City cannot be blank."
+                },
+
+                "user[location_attributes][postcode]" : {
+                    required: "Postcode cannot be blank.",
+                    digits: "Should be numbers only.",
+                    minlength: "Should be 4 digits long.",
+                    maxlength: "Should be 4 digits long."
+                },
+
+                "user[location_attributes][country_id]" : {
+                    required: "Please select your country."
+                },
+
+                "user[location_attributes][state_id]" : {
+                    required: "Please select your state."
+                },
+
+                "user[email]" : {
+                    required: "Email cannot be blank.",
+                    email: "Email format is not proper."
+
+                },
+
+                "user[password]":  {
+                    minlength: "Password should be at least 6 characters long."
+                },
+                "user[password_confirmation]": {
+                    minlength: "Password should be at least 6 characters long.",
+                    equalTo: "Password not matching."
+                },
+
+                "user[first_name]" : {
+                    required: "First name cannot be blank."
+                },
+
+                "user[last_name]" : {
+                    required: "Last name cannot be blank."
+                },
+
+                "user[phone]" : {
+                    required: "Phone number cannot be blank.",
+                    digits: "Should be numbers only.",
+                    minlength: "Should be exactly 10 digits.",
+                    maxlength: "Should be exactly 10 digits."
+                },
+
+                "user[alternate_email]": {
+                    required: "Email cannot be blank.",
+                    email: "Email format is not proper."
+                } ,
+
+                "user[mobile]" : {
+                    digits: "Should be numbers only.",
+                    minlength: "Should be exactly 10 digits.",
+                    maxlength: "Should be exactly 10 digits."
+                }
+            }
+    });
+  });
+
+
+</script>
+
+
+
+
+<div class="rounded tab_content">
+    <div class="round-wrapper">
+        <span class="tl"></span>
+        <span class="top-color"></span>
+        <span class="tr"></span>
+        <div class="area-cont">
+            <div class="area-cont_mng">
+            <h4 class="head">Profile<span class="thing_ico"></span></h4>
+
+
+            <div id="rad" class="rad1" >
+            <input type="radio" name="radio" id="radio1" value="personal" onClick="formshowhide('personal')"> Personal Profile
+            </input>
+            <input type="radio" name="radio" id="radio2" value="organisational" onClick="formshowhide('organisational')"> Organisation Profile
+            </input>
+            <span class="e_p_help_mng"><a title="If you are a person who is looking to find out more about event happening around you then choose Person profile.
+If you represent an organization and looking to use Jedo to reach out to more people use Organization Profile.
+Once a selection has been made and submitted, then it is not reversible." class="help" href="#"></a></span>
+            </div>
+
+    <div class="parent" id="main">
+          <div class="child1" id="sub1">
+          <%= form_for(@user, :as => resource_name, :url => registration_path(@user), :html => { :method => :put ,:multipart => true , :class => "all_forms" ,:id=>"edit_user1"}) do |f| %>
+             
+            <div class="message message_error" id="one_custom_error_label1">Please correct the error(s) shown below.</div>
+                      <%= hidden_field(:user, :id, :value => @user.id) %>
+                        <%= hidden_field_tag(:radio, :radio, :value => @userTypePersonal.user_type) %>
+                        <fieldset>
+				  <h4>About me </h4>				 
+				  <p>
+				  <span class="field_full">
+				  <label>Email<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:user, :email, :value => @user.email, :readonly => true ) %></span>
+				  </span>
+				  </p>
+
+				  <p>
+				  <span class="field_half">
+				  <label>Password</label>
+				  <span class="tt"><%= password_field(:user, :password)  %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Password confirmation</label>
+				  <span class="tt"><%= password_field(:user ,:password_confirmation)  %></span>
+				  </span>
+				  </p>
+
+				  <p>
+				  <span class="field_half">
+				  <label>First Name<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:user, :first_name, :value => @user.first_name ) %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Last Name<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:user, :last_name, :value => @user.last_name )%></span>
+				  </span>
+				  </p>
+
+				  <p>
+				  <span class="field_half">
+				  <%= label_tag "Mobile" %>
+				  <span class="tt"><%= text_field(:user,:mobile, :maxlength => 10 ) %></span>
+				  </span>
+				  <span class="field_half">
+				  <%= label_tag "Phone" %>
+				  <span class="tt"><%= text_field(:user,:phone, :maxlength => 10 ) %></span>
+				  </span>
+				  </p>
+          			  <p>
+				  <span class="field_full">
+				  <label>Alternate Email<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:user, :alternate_email, :value => @user.email) %><a href="#" class="help" title="Please provide an alternative email address for us to send you emails."></a></span></span>
+				  </p>
+				  <p>
+				  <span class="field_half">
+				  <label>Date of birth</label>
+                                  <span class="tt"><%= date_select :user, :dob,  {:order => [:day ,:month, :year],:prompt => true , :start_year => 1979, :end_year => 2000 }, :use_month_numbers => true %></span>
+                                  </span>
+				  <span class="field_half">
+				  <label>Gender<span class="mandatory">*</span></label>
+				  <span class="tt"><%= select( "user", "gender", { "Male" => "Male", "Female" => "Female"}, :prompt => "- select -")%></span>
+				  </span>
+				  </p>
+                                  <p>
+				  <span class="field_half">
+				  <%= label_tag "Relationship_Status" %>
+                                  <span class="tt"><%= select( "user", "relationship", { "Single" => "Single", "Married" => "Married", "Rather Not Say" => "Rather Not Say"}, :prompt => "- Select -")%></span>
+				  </span>
+
+				  <span class="field_half">
+				  <%= label_tag :Photo %>
+				  <input class="ifile" name="user[photo]" type="file" size="17" height="5" />
+				  </span>
+				  </p>
+			</fieldset>
+
+			<fieldset>
+                          <%= f.fields_for :location do |loc| %>
+
+				  <h4>Location </h4>
+				  <p>
+				  <span class="field_half">
+				  <label>Unit/Flat No<span class="mandatory">*</span></label>
+				  <span class="tt"><%= loc.text_field(:flat) %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Street Number<span class="mandatory">*</span></label>
+				  <span class="tt"><%= loc.text_field(:street_number) %></span>
+				  </span>
+				  </p>
+
+				  <p>
+				  <span class="field_half">
+				  <label>Street Name<span class="mandatory">*</span></label>
+				  <span class="tt"><%= loc.text_field(:street_name) %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Suburb/City<span class="mandatory">*</span></label>
+				  <span class="tt"><%= loc.text_field(:city_name) %></span>
+				  </span>
+				  </p>
+
+				  <p>
+				  <span class="field_half">
+				  <label>Postcode<span class="mandatory">*</span></label>
+				  <span class="tt"><%= loc.text_field(:postcode, :value => @location.postcode, :maxlength => 4)  %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Country<span class="mandatory">*</span></label>
+				  <span class="tt"><%= loc.select("country_id", options_from_collection_for_select(@country, "id", "name"), :prompt => "-Select Country-") %>
+				  </span>
+				  </span>
+				  </p>
+
+				  <p>
+				  <span class="field_half">
+				  <label>State<span class="mandatory">*</span></label>
+				  <span class="tt"><%=loc.select('state_id', "<option value="">-Select State-</option>") %></span>
+				  </span>
+				  </p>
+			</fieldset>
+                        <% end %>
+			<fieldset>
+			<h4>I Like</h4>
+
+					<center>
+					<ul class="like_top">
+					<li class="int_l_mng"><%= label_tag "Interest" %></li>
+					<li><%= select("interests1", "category_name", options_from_collection_for_select(@category, "id", "event_cat_name"), :name => "select1", :prompt => "-Category-") %></li>
+					<li><%= select("interests1", "subcategory_name","", :prompt => "-Subcategory-" )%></li>
+					<li><button type="button" onclick="submitdata()"> Add</button></li>
+					</ul>
+				<br/>
+				 <div id="ajax_loader" style="display:none;">Loading...</div>
+				  <div id="interest">
+                                  <%= render 'show_interest' %>
+						<% if @show_interests.count == 0 %>
+							  <%= hidden_field_tag(:interest, "") %>
+						<% else %>
+							  <%= hidden_field_tag(:interest, "#{@show_interests.count}") %>
+						<% end %>
+                                    <br clear="all"/>
+
+				 </div></center>
+			</fieldset>
+
+         <center><input type="submit" class="button" value="Create Profile" name="commit" id="user_submit1" /></center>
+		 <% end %>
+          </div>
+
+
+
+        <div class="child2" id="sub2" style="display:none" >
+        <%= form_for(@user, :as => resource_name, :url => registration_path(@user), :html => { :method => :put ,:multipart => true , :class => "all_forms" ,:id=>"edit_user2" }) do |f| %>
+	<div class="message message_error" id="one_custom_error_label2">Please correct the error(s) shown below.</div>
+		<fieldset>
+          <h4>Organisation </h4>
+           <%= hidden_field(:user, :id, :value => @user.id) %>
+         <%= hidden_field_tag(:radio, :radio, :value => @userTypeOrganisational.user_type) %>
+                        <%= fields_for :organisation do | org | %>
+                        <p>
+			<span class="field_full">
+			<label>Organisation Name<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.text_field(:name)  %></span>
+			</span>
+			</p>
+			<p>
+			<span class="field_full">
+			<label>URL<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.text_field(:url)  %></span>
+			</span>
+			</p>
+			<p>
+			<span class="field_full">
+			<label>Describe your organisation<span class="mandatory">*</span></label>
+			<span class="t_area_mng"><%= org.text_area(:description, :maxlength => 400)  %></span>
+			</span>
+			</p>
+			<p>
+			<span class="field_half">
+			<label>Unit/Flat No<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.text_field(:flat) %></span>
+			</span>
+			<span class="field_half">
+			<label>Street Number<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.text_field(:street_number) %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>Street Name<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.text_field(:street_name) %></span>
+			</span>
+			<span class="field_half">
+			<label>Suburb/City<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.text_field(:city_name) %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>Postcode<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.text_field(:postcode,  :maxlength => 4)  %></span>
+			</span>
+			<span class="field_half">
+			<label>Country<span class="mandatory">*</span></label>
+			<span class="tt"><%= org.select("country_id", options_from_collection_for_select(@country, "id", "name"), :prompt => "-Select Country-") %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>State<span class="mandatory">*</span></label>
+			<span class="tt"><%= org. select('state_id', "<option value="">-Select State-</option>") %></span>
+			</span>
+			<span class="field_half">
+			<label>Photo</label>
+			<span><input class="ifile" name="user[photo]" type="file" size="17" height="5" /></span>
+			</span>
+			</p>
+                        <% end %>
+	</fieldset>
+
+	<fieldset>
+         <h4>Location </h4>
+                         <%= f.fields_for :location do |loc| %>
+			<p>
+			<span class="field_half">
+			<label>Unit/Flat<span class="mandatory">*</span></label>
+			<span class="tt"><%= loc.text_field(:flat) %></span>
+			</span>
+			<span class="field_half">
+			<label>Street Number<span class="mandatory">*</span></label>
+			<span class="tt"><%= loc.text_field(:street_number) %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>Street Name<span class="mandatory">*</span></label>
+			<span class="tt"><%= loc.text_field(:street_name) %></span>
+			</span>
+			<span class="field_half">
+			<label>Suburb/City<span class="mandatory">*</span></label>
+			<span class="tt"><%= loc.text_field(:city_name) %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>Postcode<span class="mandatory">*</span></label>
+			<span class="tt"><%= loc.text_field(:postcode, :value => @location.postcode, :maxlength => 4)  %></span>
+			</span>
+			<span class="field_half">
+			<label>Country<span class="mandatory">*</span></label>
+			<span class="tt"><%= loc.select("country_id", options_from_collection_for_select(@country, "id", "name"), :prompt => "-Select Country-") %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>State<span class="mandatory">*</span></label>
+			<span class="tt"><%= loc.select('state_id', "<option value="">-Select State-</option>" )%></span>
+			</span>
+			</p>
+                         <% end %>
+	</fieldset>
+
+	<fieldset>
+         <h4> Contact Details </h4>
+
+			<p>
+			<span class="field_full">
+			<label>Email<span class="mandatory">*</span></label>
+			<span class="tt"><%= text_field(:user, :email, :value => @user.email, :readonly => true ) %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>Password</label>
+			<span class="tt"><%= password_field(:user, :password)  %></span>
+			</span>
+			<span class="field_half">
+			<label>Password confirmation</label>
+			<span class="tt"><%= password_field(:user ,:password_confirmation)  %></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>First Name<span class="mandatory">*</span></label>
+			<span class="tt"><%= text_field(:user, :first_name, :value => @user.first_name ) %></span>
+			</span>
+			<span class="field_half">
+			<label>Last Name<span class="mandatory">*</span></label>
+			<span class="tt"><%= text_field(:user, :last_name, :value => @user.last_name )%></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_full">
+
+			<label>Alternate Email<span class="mandatory">*</span></label>
+			<span class="tt"><%= text_field(:user, :alternate_email, :value => @user.email) %><a href="#" class="help" title="Please provide an alternative email address for us to send you emails."></a></span>
+			</span>
+			</p>
+
+			<p>
+			<span class="field_half">
+			<label>Phone<span class="mandatory">*</span></label>
+			<span class="tt"><%= text_field(:user,:phone, :maxlength => 10 ) %></span>
+			</span>
+			<span class="field_half">
+			<label>Mobile</label>
+			<span class="tt"><%= text_field(:user,:mobile, :maxlength => 10 ) %></span>
+			</span>
+			</p>
+
+	</fieldset>
+
+        <center><input type="submit" class="button" value="Create Profile" name="commit" id="user_submit2"/></center>
+
+        <% end %>
+        </div>
+        </div>
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+
+</div>
+</div>
+

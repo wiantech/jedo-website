@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+<title><%= yield(:title) || "Jedo-website" %></title>
+ <%= stylesheet_link_tag 'style.css' %>
+  <!--[if IE]>
+  <%= stylesheet_link_tag 'ie.css' %>
+  <![endif]-->
+ <%= csrf_meta_tag %>
+ <%= stylesheet_link_tag 'facebox.css' %>
+ <%= javascript_include_tag 'jquery-1.4.2.js' %>
+ <%= javascript_include_tag 'jquery.validate.js' %>
+ <%= javascript_include_tag 'jquery-ui.js' %>
+ <%= javascript_include_tag 'application.js' %>
+ <%= javascript_include_tag 'jquery.atooltip.js' %>
+ <%= javascript_include_tag 'msc.js' %>
+ <%= javascript_include_tag 'facebox.js' %>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $('a[rel*=facebox]').facebox({
+        loadingImage : '/images/loading.gif',
+        closeImage   : '/images/closelabel.png'
+      })
+    })
+  </script>
+
+</head>
+<body>
+<!--wrapper start-->
+<div class="wrapper login">
+
+<!--header section start-->
+<div class="header">
+<a class="logo" href="#" title="Home"></a>
+</div>
+<!--header section end-->
+<br class="clear" />
+<!--top content start-->
+<div class="top_content">Curious about what's going on in your neck of the woods?<br />
+Sign in and find out what the locals are up to...</div>
+<!--top content end-->
+<%= yield %>
+<br class="clear" />
+<!--footer start-->
+<div class="footer">
+<div class="f_l"><p>Jedo © 2010</p></div>
+<ul class="f_r">
+<li><a href="#" title="About Us">About Us</a></li>
+<li><a href="#" title="Advertising">Advertising</a></li>
+<li><a href="#" title="Careers">Careers</a></li>
+<li><a href="#" title="Mobile">Mobile</a></li>
+<li><a href="#" title="Terms of Use">Terms of Use</a></li>
+<li><a href="#" title="Privacy">Privacy</a></li>
+<li><a href="#" title="Help Centre">Help Centre</a></li>
+</ul>
+<br class="clear" />
+</div>
+<!--footer end-->
+</div>
+<!--wrapper end-->
+</body>
+</html>

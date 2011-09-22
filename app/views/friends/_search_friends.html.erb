@@ -1,0 +1,7 @@
+<form class="s_f_block" action="<%=friends_path%>" name="srch_friend" method="get">
+<p><span class="s_fields s_fields_size">
+<input type="text" value="<% if @search_friend %><%=@search_friend%><%else%>Search friends…<% end %>"onclick="if(this.value=='Search friends…')this.value='';" onblur="if(this.value=='') this.value='Search friends…';"  name="search_friend" id="search_friend" />
+</span> &nbsp;&nbsp;&nbsp; <span class="s_fields s_fields_butto">
+<input type="submit" value="Search" name="submit" />
+</span></p>
+</form>

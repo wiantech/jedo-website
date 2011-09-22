@@ -1,0 +1,116 @@
+    <!--main container start-->
+     <div class="content">
+        <div class="left">
+        <div class="rounded left_box">
+        <div class="round-wrapper">
+        <span class="tl"></span>
+        <span class="top-color"></span>
+        <span class="tr"></span>
+        <div class="area-cont">
+        <div class="area-cont_mng">
+        <h1 class="sign_in_head" title="Sign in"><img src="/images/sign_in.png" width="116" height="39" alt="Sign in" />
+          <span class="fb_text"><%= link_to "Facebook Sign in", user_omniauth_authorize_path(:facebook) %></span> </h1>
+         <!-- Sign in box-->
+        <%= form_for("user", :url => user_session_path ,:html=>{:class=>'sign_in_form'}) do |f| %>
+       <% if flash[:alert].present? %>
+        <span class="c_error"><%=flash[:alert] %></span>
+        <% end %>
+        <% if flash[:notice].present? %>
+        <% if flash[:notice] == "Signup successful." %>
+        <span class="c_succ"><%=flash[:notice]%></span>
+        <% else %>
+        <span class="c_error"><%=flash[:notice]%></span>
+        <% end %>
+        <% end %>
+          <p class="buttons_f_mng">
+          <span><label>Email</label></span>
+          <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</label><br class="clear" />
+          <%= f.text_field :email %>
+          <%= f.password_field :password ,:class=>"pass" %>
+          
+          </p>
+          <p class="remember">
+          <span class="f_r">
+            <input class="go" type="submit" value="Sign in" name="commit" id="user_submit" />
+          </span>         
+          <span class="f_r chmng"><%= f.check_box :remember_me %>Remember Me<%= link_to "Forgot your password?", new_password_path('user') ,:class=>"forgot" %></span></p><br class="clear" />
+          <p align="left">New to Jedo?</p>
+          <p>    
+		       
+          <%= link_to "register now" ,new_user_registration_path ,:class=>"abutton" ,:rel=>"[facebox]"  %>
+          </p>
+          <% end %>
+        <!-- End of Sign in box -->
+        <br clear="all" />
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+        </div>
+        </div>
+        </div>
+        <!--middle container start-->
+        <div class="middle">
+        <div class="rounded middle_box1">
+        <div class="round-wrapper">
+        <span class="tl"></span>
+        <span class="top-color"></span>
+        <span class="tr"></span>
+        <div class="area-cont">
+        <div class="area-cont_mng">
+        <h3>take A <br />site tour</h3>
+        <p class="mini_txt">Blandit sed, fermentum id, imperdiet sit amet, neque. Nam mollis ultrices justo.</p>
+        <p class="pcenter"><input class="go" name="submit" type="button" /></p>
+        <br clear="all" />
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+        </div>
+        </div>
+        <div class="rounded middle_box2 marg_top">
+        <div class="round-wrapper">
+        <span class="tl"></span>
+        <span class="top-color"></span>
+        <span class="tr"></span>
+        <div class="area-cont">
+        <div class="area-cont_mng">
+        <h3>Free Mobile App Coming Soon</h3>
+        <br clear="all" />
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+        </div>
+        </div>
+        </div>
+        <!--middle container end-->
+
+        <!--right container start-->
+        <div class="right">
+        <div class="map">
+        <img src="/images/g_map.png" width="368" height="242" alt="map" />
+        </div>
+        </div>
+        <!--right container end-->
+
+    </div>
+    <!--main container end-->
+
+<script>
+      /*window.fbAsyncInit = function() {
+        FB.init({appId: '229205447093980', status: true, cookie: true,
+                 xfbml: true});
+      };
+      (function() {
+        var e = document.createElement('script');
+        e.type = 'text/javascript';
+        e.src = document.location.protocol +
+          '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+      */
+    </script>

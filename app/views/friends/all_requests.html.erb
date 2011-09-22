@@ -1,0 +1,53 @@
+<div class="rounded tab_content">
+ <div class="round-wrapper"> 
+            	<span class="tl"></span>
+                	<span class="top-color"></span>
+                <span class="tr"></span>
+                <div class="area-cont">
+                <div class="area-cont_mng">
+<h4 class="head">Friends<span class="thing_ico"></span></h4>
+<%= render 'friends/search_friends' %>
+<% if !@mypending_friends.blank? %>
+<div class="friend_search">
+<br class="clear" />
+<ul class="f_listing">
+   <% @mypending_friends.each do |myPendingFriend|  %>
+    <li id="mypendingfrieend_<%=myPendingFriend.id%>">
+    <a title="<%=myPendingFriend.first_name%> <%=myPendingFriend.last_name%>" href="#" class="user_img">
+    <% if myPendingFriend.photo.exists?%> <%= image_tag myPendingFriend.photo.url(:thumb) %> <% else %><img width="41" height="41" alt="<%=myPendingFriend.first_name %> <%=myPendingFriend.last_name %>" src="/images/no_image.jpg" />  <% end %>
+    </a>
+    <div class="f_list">
+    <h6><a title="<%=myPendingFriend.first_name%> <%=myPendingFriend.last_name%>"><%=myPendingFriend.first_name%> <%=myPendingFriend.last_name%></a></h6>
+    <ul class="f_details">
+    <li><p><%=myPendingFriend.location.city_name%></p></li>
+    <li><p></p></li>
+    <li><p class="f_r"><a class="friends_list_accept"  title="accept" href="javascript:void()" onclick="accept_friend_request('<%=myPendingFriend.id%>' ,'<%=myPendingFriend.friend_id%>')"></a></p></li>
+    <li>
+    <p class="f_l"><a class="friends_list_deny" title="ignore" href="javascript:void()" onclick="deny_friend_request('<%=myPendingFriend.id%>' ,'<%=myPendingFriend.friend_id%>')"></a></p>
+    </li>
+    </ul>
+    </div>
+    </li>
+    <% end %>
+    </ul>
+          <div class="all_bt_hold">
+          <%= paginate @mypending_friends ,:window=>6 %>
+	</div>
+</div>
+<% else %>
+<div class="friend_search">
+<br class="clear" />
+<ul class="f_listing">
+  <li>No pending friend request.</li>
+  </ul>
+</div>
+<% end %>
+<br class="clear" />
+                 </div>
+                 </div>
+                <span class="bl"></span>
+                	<span class="bottom-color"></span>
+                <span class="br"></span>              
+            
+</div>
+</div>

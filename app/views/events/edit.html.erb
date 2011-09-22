@@ -1,0 +1,436 @@
+<% if params[:flag] =='preview' %>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+      jQuery.facebox({ ajax: '/events/preview_event?id=<%=@event.id%>' });
+    })
+    $(document).bind('close.facebox', function() { var loc= window.location.href; window.location.href=loc.replace("?flag=preview" ,'');});
+</script>
+<% end %>
+<%= javascript_include_tag 'ui.core.js' %>
+<%= javascript_include_tag 'ui.datepicker.js' %>
+<script>
+   // start date and end date dependent
+   $(document).ready(function() {
+      jQuery.validator.addMethod("requiredUrl", function(value, element, param) {
+    var expression = /^(http:\/\/|https:\/\/)?((([\w-]+\.)+[\w-]+)|localhost)(\/[\w- .\/?%&=]*)?/i;
+    return expression.test(value);
+}, jQuery.validator.messages.url);
+     jQuery.validator.addMethod("greaterThan", function(value, element, params) {
+          valueArr=value.split('-');
+          paramsArr=$(params).val().split('-');
+            if (!/Invalid|NaN/.test(new Date(valueArr[2],valueArr[1],valueArr[0]))) {
+             return new Date(valueArr[2],valueArr[1],valueArr[0]) >= new Date(paramsArr[2],paramsArr[1],paramsArr[0]);
+            }
+            return false;
+        },'End date must be greater than or equal to start date');
+        
+    $(function ()
+    {
+        $('#start_date, #end_date').datepicker({
+
+            //showOn: "both",
+            beforeShow: customRange,
+            dateFormat: "dd-mm-yy",
+            firstDay: 1,
+            changeFirstDay: false
+        });
+
+    });
+
+function customRange(input) {
+    var min = new Date(); //Set this to your absolute minimum date
+        dateMin = min;
+        dateMax = null;
+        dayRange = 6; // Set this to the range of days you want to restrict to
+
+    if (input.id === "start_date") {
+        if ($("#end_date").datepicker("getDate") != null) {
+            dateMax = $("#end_date").datepicker("getDate");
+            dateMin = $("#end_date").datepicker("getDate");
+            dateMin.setDate(dateMin.getDate() - dayRange);
+            if (dateMin < min) {
+                dateMin = min;
+            }
+        }
+        else {
+            dateMax = new Date; //Set this to your absolute maximum date
+        }
+    }
+    else if (input.id === "end_date") {
+        //dateMax = new Date; //Set this to your absolute maximum date
+        dateMax = $("input#start_date").val();
+        if ($("#start_date").datepicker("getDate") != null) {
+            dateMin = $("#start_date").datepicker("getDate");
+            var rangeMax = new Date(dateMin.getFullYear(), dateMin.getMonth(),dateMin.getDate() + dayRange);
+
+            if(rangeMax < dateMax) {
+                dateMax = rangeMax;
+            }
+        }
+    }
+    return {
+        minDate: dateMin
+
+    };
+  }
+
+      });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#one_custom_error_label').hide();
+    var validator = $("#edit_event_id").bind("invalid-form.validate", function() {
+      $("#one_custom_error_label").html("Please correct the error(s) shown below.");
+    }).validate({
+      errorContainer: $("#one_custom_error_label"),
+      rules: {
+        "event[title]": {
+          required: true,
+          maxlength: 40
+        } ,
+        "event[description]": {
+          required: true,
+          maxlength: 400
+        },
+        "event[email]": {
+          required: true,
+          email:true
+        },
+        "event_category[category_id]": {
+          required: true
+        },
+        "event_category[subcategory_id]": {
+          required:true
+        },
+        "event_location[flat]":{
+          required:true
+        },
+        "event_location[street_name]": {
+          required: true
+        },
+        "event_location[city_name]":{
+          required: true
+        },
+        "event_location[country_id]": {
+          required: true
+        },
+        "event_location[state_id]": {
+          required: true
+        },
+        "event[phone]": {
+          digits: true,
+          minlength: 10,
+          maxlength: 10
+        },
+        "event[mobile]": {
+          digits: true,
+          minlength: 10,
+          maxlength: 10
+        },
+        "event[start_time_hours]": {
+          required: true,
+          range: [1,12]
+        },
+        "event[start_time_minutes]": {
+          required: true,
+          range: [0,59]
+        },
+        "event[end_date]":{
+          required: true ,
+          greaterThan: "#start_date"
+        },
+        "event[url]": {
+         requiredUrl: true
+        },
+        "event_location[post_code]": {
+          required: true,
+          digits: true,
+          maxlength: 4,
+          minlength: 4
+        },
+        "event[capacity]":{
+          required: true,
+          digits: true,
+          maxlength: 6,
+          minlength: 2
+        }
+      } ,
+
+      messages: {
+        "event[title]":{
+          required: "Title can not be blank.",
+          maxlength: "Title can not be more than 40 characters."
+        },
+        "event[email]": {
+          required: "Email can not be blank.",
+          email:"Email format is not proper."
+        },
+
+        "event[description]":{
+          required: "Description can not be blank.",
+          maxlength: "Description can not be more than 400 characters."
+        },
+        "event_category[category_id]":{
+          required: "Category can not be left unselected."
+        },
+        "event_category[subcategory_id]":{
+          required:  "Sub category can not be left unselected."
+        },
+        "event_location[flat]": {
+          required: "Unit/Flat no. can not be blank."
+        },
+        "event_location[street_name]": {
+          required: "Street Name can not be blank."
+        },
+        "event_location[city_name]": {
+          required: "City Name can not be blank."
+        },
+        "event_location[country_id]": {
+          required: "Country can not be left unselected."
+        },
+        "event_location[state_id]": {
+          required: "State can not be left unselected."
+        },
+        "event[phone]": {
+          digits: "Phone no. should contain numbers only.",
+          maxlength: "Phone no. should not more than 10 characters.",
+          minlength: "Phone no. should not less than 10 characters."
+        } ,
+        "event[mobile]": {
+          digits: "Mobile no.should contain number only.",
+          minlength: "Should be exactly 10 digits.",
+          maxlength: "Should be exactly 10 digits."
+        } ,
+        "event[start_time_hours]": {
+          required: "Start time hours can not be blank.",
+          range: "Start time hours value between 1 and 12."
+        },
+        "event[start_time_minutes]": {
+          required: "Start time minutes can not be blank.",
+          range: "Start time minutes  value between 0 and 59."
+        },
+        "event[url]": {
+          url: "Enter valid URL."
+
+        },
+        "event_location[post_code]": {
+          required: "Post code can not be blank.",
+          digits:   "Post code should contain numbers only.",
+          maxlength: "Should be exactly 4 digits.",
+          minlength: "Should be exactly 4 digits."
+        },
+        "event[capacity]": {
+          required: "Capacity can not be blank.",
+          digits: "Capacity should be contain numbers only.",
+          maxlength: "Capacity should not be more than 6 digits.",
+          minlength: "Capacity should not be less than 2 digits."
+
+        },
+        "event[end_date]": {
+          required: "End Date can not be blank."
+        }
+  
+      }
+
+    });
+
+ });
+
+</script>
+
+  <div class="rounded tab_content">
+  <div class="round-wrapper">
+      <span class="tl"></span>
+      <span class="top-color"></span>
+      <span class="tr"></span>
+      <div class="area-cont">
+      <div class="area-cont_mng">
+      <h4 class="head">Modify Event<span class="thing_ico"></span></h4>
+      <% form_tag(@event, :method=>'put' , :multipart => true,  :class => "all_forms",:id=>"edit_event_id", :name => "edit_event") do %>
+       <div class="message message_error" id="one_custom_error_label">Please correct the error(s) shown below.</div>
+        <fieldset>
+
+          <p>
+          <span class="field_full">
+          <label>Event Title<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event ,  :title)%></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_full">
+          <label>Event description<span class="mandatory">*</span></label>
+          <span class="tt t_area_mng"><%= text_area(:event, :description,  :rows => 6,  :cols => 30)%></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Picture</label>
+          <span class="tt"><input class="ifile" name="event[event]" value="" type="file" size="27" height="5" /></span>
+          </span>
+          <span class="field_half">
+          <label>Event Url</label>
+          <span class="tt"><%= text_field(:event , :url)  %></span>
+          </span>
+          </p>
+          <p>
+          <% if !@event.event_type.blank? %>
+              <span class="field_half">
+              <label>Event Type<span class="mandatory">*</span></label>
+              <span class="tt">
+               <select id="event_type"  name = "event[event_type]" disabled ='disabled'>
+					  <option value="Public" <%  if (@event.event_type=='Public') %> selected="selected" <% end %>>Public</option>
+					  <option value="Private" <%  if (@event.event_type=='Private') %> selected="selected" <% end %>>Private</option>
+					</select>
+              </span>
+              </span>
+          <%end%>
+          </p>
+          <p id="event_category"<% if current_user.user_type == @user_type_organisational.user_type.to_s  or @event.event_type =='Private'%> style="display:none"<% else %> style="display:block"  <% end %> >
+          <span class="field_half">
+          <label>Event category<span class="mandatory">*</span></label>
+          <span class="tt"><%=select(:event_categories, :category_id, @event_master.map {|u| [u.event_cat_name, u.id]}, html_options ={:selected => @event_category_data.category_id},:disabled => true)%></span>
+          </span>
+          <span class="field_half">
+          <label>Sub Category<span class="mandatory">*</span></label>
+          <span class="tt"><%=select(:event_categories, :subcategory_id, @event_master.map {|u| [u.event_cat_name, u.id]}, html_options ={:selected => @event_category_data.subcategory_id},:disabled => true)%></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Unit/Flat<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event_location , :flat)  %></span>
+          </span>
+          <span class="field_half">
+          <label>Street Number</label>
+          <span class="tt"><%= text_field(:event_location , :street_number)  %></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Street Name<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event_location , :street_name)  %></span>
+          </span>
+          <span class="field_half">
+          <label>Suburb/City<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event_location , :city_name)  %></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Country<span class="mandatory">*</span></label>
+          <span class="tt"><%= select("event_location", "country_id", options_from_collection_for_select(@country, "id", "name", html_options = {:selected => @event_location.country_id}), :prompt => "-Select Country-") %></span>
+          </span>
+          <%  if @event_location.state_id == nil %>
+              <span class="field_half">
+              <label>State<span class="mandatory">*</span></label>
+              <span class="tt"><%=  select('event_location','state_id', "<option>-Select State-</option>") %></span>
+              </span>
+          <% else %>
+              <span class="field_half">
+              <label>State<span class="mandatory">*</span></label>
+              <span class="tt"><%=  select('event_location','state_id', options_from_collection_for_select(@event_state, "id", "name", html_options = {:selected => @event_location.state_id}), :prompt => "-Select State-" )%></span>
+              </span>
+          <% end %>
+          </p>
+          <p>
+          <span class="field_half">
+          <label>Postcode<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event_location , :post_code, :maxlength => 4)  %></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_full">
+          <label>Email<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event , :email)  %></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Phone</label>
+          <span class="tt"><%= text_field(:event , :phone ,:maxlength => 10)  %></span>
+          </span>
+          <span class="field_half">
+          <label>Mobile</label>
+          <span class="tt"><%= text_field(:event , :mobile ,:maxlength => 10)  %></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Start Date<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event , :start_date ,:disabled => true ,:id => 'start_date')  %></span>
+          </span>
+          <span class="field_half">
+          <label>End Date<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event , :end_date,:id => 'end_date')  %></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Start Time<span class="mandatory">*</span></label>
+          <span class="tt">
+          <span class="f_l"><%= text_field(:event , :start_time_hours, :class => "t_inpu")  %></span>
+          <span class="f_l"><%= text_field(:event , :start_time_minutes, :class => "t_inpu")  %></span>
+          <span class="f_l"><select id="start_time_type" name = "event[start_time_type]">
+              <option value="AM" <%  if @event.start_time_type == "AM" %>selected="selected" <% end  %>>AM</option>
+              <option <%  if  @event.start_time_type == "PM"  %>selected="selected" <% end  %>>PM</option>
+          </select></span></span>
+          </span>
+
+          <span class="field_half">
+          <label>End Time<span class="mandatory">*</span></label>
+          <span class="tt">
+          <span class="f_l"><%= text_field(:event , :end_time_hours,:disabled => 'disabled',:size=>5, :class => "t_inpu")  %></span>
+          <span class="f_l"><%= text_field(:event , :end_time_minutes,:disabled => 'disabled',:size =>5, :class => "t_inpu")  %></span>
+          <span class="f_l"><select id="end_end_type" name = "event[end_time_type]" <%  if !@event.end_time_type.blank? %> disabled="disabled" <% end  %> >
+          <option value="AM" <%  if @event.end_time_type == "AM" %>selected="selected" <% end  %> >AM</option>
+          <option value="PM" <%  if  @event.end_time_type == "PM"  %>selected="selected" <% end  %>>PM</option>
+          </select></span></span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Spots remaining<span class="mandatory">*</span></label>
+          <span class="tt"><%= text_field(:event , :capacity,:maxlength => 6)  %>
+          <a href="#" class="help" title="This is the number of people who can RSVP to your event. This number updates as people book spots, to make sure your events are never overbooked."></a>
+          </span>
+          </span>
+          <% if !@event.cost.blank? %>
+              <span class="field_half">
+              <label>Cost</label>
+              <b style="color: rgb(0, 0, 0);" id="doller">&nbsp;&nbsp;$&nbsp;&nbsp;</b><%= text_field(:event , :cost,:disabled => 'disabled',:size =>5) %>
+              </span>
+          <%else%>
+              <span class="field_half">
+              <label>Cost</label>
+              <span class="tt"><%= text_field(:event , :cost,:disabled => 'disabled',:size =>5 , :value => "Free") %></span>
+              </span>
+          <%end%>
+          </p>
+              <p class="preview"><input class="button" type="submit" name="preview" value="Preview" /></p>
+              <br class="clear" />
+              </fieldset>
+              <center class="f_but_mng div_f_but_mng"><input class="button" type="submit" name="submit" value="Update Event" />&nbsp;&nbsp;
+			  <!--<input class="button" type="button" name="submit" value="Cancel" />-->
+              <%= button_to "Cancel", my_events_dashboards_path, :class=>"button" %>
+
+			 
+			  </center>
+      <%  end  %>
+      </div>
+      </div>
+      <span class="bl"></span>
+      <span class="bottom-color"></span>
+      <span class="br"></span>
+  </div>
+  </div>
+

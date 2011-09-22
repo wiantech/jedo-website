@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title><%= yield(:title) || "Jedo-website" %></title>
+  <%= stylesheet_link_tag 'style.css' %>
+  <%= stylesheet_link_tag 'ui.all.css' %>
+  <!--[if IE]>
+  <%= stylesheet_link_tag 'ie.css' %>
+  <![endif]-->
+  <%= stylesheet_link_tag 'facebox.css' %>
+  <%= csrf_meta_tag %>
+  <%= javascript_include_tag 'jquery-1.4.2.js' %>
+  <%= javascript_include_tag 'jquery.validate.js' %>
+  <%= javascript_include_tag 'jquery-ui.js' %>
+  <%= javascript_include_tag 'application.js' %>
+  <%= javascript_include_tag 'msc.js' %>
+  <%= javascript_include_tag 'facebox.js' %>
+  <%= javascript_include_tag 'jquery.atooltip.js' %>
+  
+
+   <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $('a[rel*=facebox]').facebox({
+        loadingImage : '/images/loading.gif',
+        closeImage   : '/images/closelabel.png'
+      })
+
+    }
+
+)
+  </script>
+  </head>
+  <!--[if IE]>
+  <link href="stylesheets/ie.css" rel="stylesheet" type="text/css" />
+  <![endif]-->
+
+
+<body>
+<div class="wrapper">
+<div class="header">
+<a class="logo" href="/dashboards" title="Home"></a>
+<form class="search" action="" id="search">
+<ul>
+<li><input class="go" name="submit" type="button" /></li>
+<li><p><label><input name="" type="radio" value="" />Show Results As List</label><br />
+<label><input name="" type="radio" value="" />Show Results on Map</label></p></li>
+<li><span class="tt"><input class="focus" type="text" name="Username" value="Search..." /></span></li>
+</ul>
+<br class="clear" />
+<div class="links">
+<% if user_signed_in? %>
+<%= link_to "Logout", destroy_user_session_path ,:class=>"logout" %>
+<% end %>
+</div>
+</form>
+</div>
+<br class="clear" />
+<div class="creat_e_ie creat_event">
+
+<div class="round-wrapper ce_ie">
+            	<span class="tl"></span>
+                	<span class="top-color"></span>
+                <span class="tr"></span>
+                <div class="area-cont">
+                <div class="area-cont_mng">
+                <ul class="menu menumng">
+                <li><a href="<%=my_events_dashboards_path%>" title="Events">Events</a>|</li>
+                <li><a href="#" title="Inbox">Inbox</a>|</li>
+                <li><a href="#" title="Calendar">Calendar</a></li>
+                </ul>
+                <% if current_user.user_type != nil%>
+                <a class="button" href="/events/new" title="create an event" ><span class="o_color">create</span> event</a>
+                <%else%>
+                 <a class="button gray_but" href="#" title="create an event" ><span class="o_color">create</span> event</a>
+                <%  end %>
+                <br class="clear" />
+                 </div>
+                 </div>
+                <div class="ce_mng">
+                <span class="bl"></span>
+                	<span class="bottom-color"></span>
+                <span class="br"></span>
+                </div>
+
+</div>
+
+</div>
+
+<div class="content">
+<div class="left">
+<!--Profile Box-->
+<div class="left_box">
+    <div class="widgets_top"></div>
+    <div class="widgets_mid">
+
+        <div class="w_con_mng">
+        <a class="user_img" href="#" title= "<%= current_user.first_name%> <%= current_user.last_name%>">
+         <% if current_user.photo.exists?%> <%= image_tag current_user.photo.url(:thumb) %> <% else %> <img src="/images/no_image.jpg" width="41" height="41" alt="<%= current_user.first_name%> <%= current_user.last_name%>" /> <% end %>
+         </a>
+        <div class="profile landing">
+        <p class="user_name"><a href="#" title="name"><b class="fon_mng"><%=current_user.first_name %> <%=current_user.last_name %></b></a></p>
+        </div><br class="clear" />
+        <p class="logout">
+        <% if current_user.user_type == nil %>
+        <%= link_to 'Complete your profile', edit_user_registration_path%>
+        <% else %>
+        <%= link_to 'Profile', profile_view_path(:id=>current_user.id) %>
+        <% end %>
+        <a href="#" class="help" title="For you to get the most out of Jedo, you’ll need to complete your profile.By completing your interest and location information, we’ll be able to let you know when events are created that suit your interests and your location. Let us do the searching for you, so you can just concentrate on having fun. "></a>
+        </div>
+
+    </div>
+    <div class="widgets_bot"></div>
+</div>
+<!--Profile Box End-->
+
+<!--Event Update Box-->
+<div class="left_box">
+    <div class="widgets_m_mng">
+        <div class="widgets_top"></div>
+        <div class="widgets_mid">
+
+            <div class="w_con_mng w_head">
+            <h5>event update <span class="event_update"></span></h5>
+            <ul>
+            <li><p>You are yet to <a href="#" title="events">rate 2 events.</a></p></li>
+            <li><p>You have <a href="#" title="RSVPs">17 new RSVPs</a></p></li>
+            <li><p>You have <a href="#" title="UNRSVPs">4 new UNRSVPs</a></p></li>
+            </ul>
+            </div>
+
+        </div>
+        <div class="widgets_bot"></div>
+    </div>
+</div>
+<!--Event Update Box End-->
+<!-- Hide friend request and friends widget for Organisational profile -->
+<% if current_user.user_type != @user_type_organisation[:user_type].to_s %>
+<div class="left_box">
+    <div class="widgets_m_mng">
+        <div class="widgets_top"></div>
+        <div class="widgets_mid">
+
+            <div class="w_con_mng w_head">
+            <h5>friend requests <span class="friend_requests"></span></h5>
+            <% if !@pending_friends.blank? %>
+			<% @pending_friends.each do |pending_friend| %>
+			<div id="friend_requests">
+			<div class="accept_reject_id_<%=pending_friend.id%>">
+			<a class="user_img" href="#" title="<%=  pending_friend.first_name %> <%=  pending_friend.last_name %>"><% if pending_friend.photo.exists?  %> <%= image_tag pending_friend.photo.url(:thumb) %> <% else %> <img src="/images/no_image.jpg" width="41" height="41" alt="<%=  pending_friend.first_name %> <%=  pending_friend.last_name %>" /><% end %></a>
+			<div class="profile">
+			<p class="requests">
+			<a class="accept" title="accept" id="accept_<%=pending_friend.id%>"  href="javascript:void()" onclick="accept_friend_request_from_layout('<%=pending_friend.id%>' ,'<%=pending_friend.friend_id%>')"></a> <a class="deny" title="ignore" id="ignore_<%=pending_friend.id%>" href="javascript:void()" onclick="deny_friend_request_from_layout('<%=pending_friend.id%>' ,'<%=pending_friend.friend_id%>')"></a>
+			</p>
+			</div>
+			</div>
+			 </div><br class="clear" />
+          		<% end %>
+                 	<% if @pending_friends2.count >3 %>
+			<p class="view_all"><a href="<%=all_requests_friends_path%>">...more</a></p>
+			<% end %>
+			<% else %>
+			<p>No friend request yet</p>
+			<% end %>
+            </div>
+
+        </div>
+        <div class="widgets_bot f_raq_bot_mng"></div>
+    </div>
+</div>
+    <div class="left_box">
+    <div class="widgets_m_mng">
+    <div class="widgets_top"></div>
+    <div class="widgets_mid">
+    <div class="w_con_mng w_head">
+    <h5>friends <span class="friends"></span></h5>
+    <% if !@Myfrined.blank? %>
+    <% @Myfrined.each do |myfriend2| %>
+    <a class="user_img" href="#" title="<%=myfriend2.first_name%>&nbsp;<%=myfriend2.last_name%>"><% if myfriend2.photo.exists? %><%= image_tag myfriend2.photo.url(:thumb) %><%else%><img src="/images/no_image.jpg" width="41" height="41" alt="<%=myfriend2.first_name%> <%=myfriend2.last_name%>"/><% end %></a>
+    <% end %> <br class="clear" />
+    <% if @Myfrined2.count >0 %>
+    <p class="view_all"><%= link_to '...more' ,friends_path   %></p>
+    <% end %>
+    <% else  %>
+    <p class="view_all"><%= link_to 'No Friend Yet' ,friends_path   %></p>
+    <% end %>
+    </div>
+    </div>
+    <div class="widgets_bot"></div>
+    </div>
+    </div>
+<% end %>
+  <!-- Hide friend request and friends widget for Organisational profile -->
+</div>
+
+
+  <div class="middle">
+  <%= yield %>
+  </div>
+<div class="right">
+ <% if params[:controller]=='dashboards' and params[:action]=='event_details'  %>
+ <div class="left_box r_lb_top">
+    <div class="widgets_top"></div>
+    <div class="widgets_mid w_m_top">
+
+    	<div class="w_con_mng w_head">
+        <h5>photos<span class="photos"></span></h5>
+		<a class="user_img" href="#" title="User Name"><img src="/images/friend1.jpg" width="41" height="41" alt="User" /></a>
+		<a class="user_img" href="#" title="User Name"><img src="/images/friend2.jpg" width="41" height="41" alt="User" /></a>
+		<a class="user_img" href="#" title="User Name"><img src="/images/friend3.jpg" width="41" height="41" alt="User" /></a>
+		<a class="user_img" href="#" title="User Name"><img src="/images/friend4.jpg" width="41" height="41" alt="User" /></a>
+		<a class="user_img" href="#" title="User Name"><img src="/images/friend5.jpg" width="41" height="41" alt="User" /></a>
+		<a class="user_img" href="#" title="User Name"><img src="/images/friend5.jpg" width="41" height="41" alt="User" /></a>
+          	<br class="clear" />
+		<p class="view_all"><a href="friends.html">...more</a></p>
+        </div>
+    </div>
+    <div class="widgets_bot"></div>
+</div>
+<% else %>
+<img class="ads1" src="/images/blank.png" width="180" height="150" alt="ad sections" /><br /><br />
+<% end %>
+ <% if params[:controller]=='dashboards' and params[:action]=='event_details'  %>
+<div class="left_box">
+    <div class="widgets_m_mng">
+        <div class="widgets_top"></div>
+        <div class="widgets_mid">
+
+            <div class="w_con_mng w_head">
+            <h5>Location<span class="location"></span></h5>
+			<div class="profile">
+			<p class="requests">
+			<a class="user_img" href="#" title="User Name"><img border="0" src="/images/right_map.jpg" width="163" height="160" alt="Right map" /></a>
+			</p>
+			</div>
+			<br class="clear" />
+            </div>
+
+        </div>
+        <div class="widgets_bot"></div>
+    </div>
+</div>
+<% else %>
+<img class="ads2" src="/images/blank.png" width="180" height="150" alt="ad sections" /><br /><br />
+<% end %>
+
+<% if params[:controller] =='dashboards' and params[:action] =='event_details'  %>
+
+<% else %>
+<img class="ads3" src="/images/blank.png" width="180" height="150" alt="ad sections" />
+<% end %>
+<br />
+</div>
+</div>
+<br class="clear" />
+<div class="footer">
+<div class="f_l"><p>Jedo © 2010</p></div>
+<ul class="f_r">
+<li><a href="#" title="About Us">About Us</a></li>
+<li><a href="#" title="Advertising">Advertising</a></li>
+<li><a href="#" title="Careers">Careers</a></li>
+<li><a href="#" title="Mobile">Mobile</a></li>
+<li><a href="#" title="Terms of Use">Terms of Use</a></li>
+<li><a href="#" title="Privacy">Privacy</a></li>
+<li><a href="#" title="Help Centre">Help Centre</a></li>
+</ul>
+<br class="clear" />
+</div>
+<!--wrapper end-->
+
+
+</div>
+
+</body>
+</html>

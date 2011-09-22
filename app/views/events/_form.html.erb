@@ -1,0 +1,265 @@
+<%= javascript_include_tag 'ui.core.js' %>
+<%= javascript_include_tag 'ui.datepicker.js' %>
+<script>
+   // start date and end date dependent
+   $(document).ready(function() {
+      /* Add method to check endDate greater than startDate */
+   
+    $(function ()
+    {
+        $('#start_date, #end_date').datepicker({
+
+            //showOn: "both",
+            beforeShow: customRange,
+            dateFormat: "dd-mm-yy",
+            firstDay: 1,
+            changeFirstDay: false
+        });
+
+    });
+
+function customRange(input) {
+    var min = new Date(); //Set this to your absolute minimum date
+        dateMin = min;
+       
+        dateMax = null;
+        dayRange = 6; // Set this to the range of days you want to restrict to
+
+    if (input.id === "start_date") {
+      
+        if ($("#end_date").datepicker("getDate") != null) {
+            dateMax = $("#end_date").datepicker("getDate");
+            dateMin = $("#end_date").datepicker("getDate");
+            dateMin.setDate(dateMin.getDate() - dayRange);
+            if (dateMin < min) {
+                dateMin = min;
+            }
+        }
+        else {
+            dateMax = new Date; //Set this to your absolute maximum date
+        }
+    }
+    else if (input.id === "end_date") {
+        dateMax = new Date; //Set this to your absolute maximum date
+        
+        if ($("#start_date").datepicker("getDate") != null) {
+            dateMin = $("#start_date").datepicker("getDate");
+            var rangeMax = new Date(dateMin.getFullYear(), dateMin.getMonth(),dateMin.getDate() + dayRange);
+
+            if(rangeMax < dateMax) {
+                dateMax = rangeMax;
+            }
+        }
+    }
+    return {
+        minDate: dateMin
+
+    };
+  }
+
+      });
+</script>
+<div class="rounded tab_content">
+ <div class="round-wrapper"> 
+            	<span class="tl"></span>
+                	<span class="top-color"></span>
+                <span class="tr"></span>
+                <div class="area-cont">
+                <div class="area-cont_mng">
+				<h4 class="head">Create Event<span class="thing_ico"></span></h4>
+				
+				<%= form_tag @event,:url=> new_event_path ,:multipart => true ,:class => "all_forms",:id=> "new_event",:name=> "new_event" do  %>
+				  <% if @event.errors.any? %>
+					<div id="error_explanation">
+					  <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+					  <ul>
+					  <% @event.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					  <% end %>
+					  </ul>
+					</div>
+				  <% end %>
+                                <div class="message message_error" id="one_custom_error_label">Please correct the error(s) shown below.</div>
+			
+                               <fieldset>
+		
+				  <p>
+				  <span class="field_full">
+				  <label>Event Title<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event , :title)  %></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_full">
+				  <label>Event description<span class="mandatory">*</span></label>
+				  <span class="tt t_area_mng"><%= text_area(:event, :description,  :rows => 6,  :cols => 30)%></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Picture</label>
+				  <span class="tt"><input class="ifile" name="event[event]" value="" type="file" size="27" height="5" /></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Event Url</label>
+				  <span class="tt"><%= text_field(:event , :url)  %></span>
+				  </span>
+				  </p>		
+                                   <p>
+
+				  <span class="field_half">
+				  <label>Event Type<span class="mandatory">*</span></label>
+				  <span class="tt">
+                                  <% if current_user.user_type == @user_type_personal.user_type.to_s  %>
+				  <select id="event_type"  name = "event[event_type]">
+					  <option value="Public">Public</option>
+					  <option value="Private">Private</option>
+					</select>
+                                   <% elsif current_user.user_type == @user_type_organisational.user_type.to_s %>
+                                    <select id="event_type2"  name = "event[event_type]">
+					  <option value="Public">Public</option>
+					</select>
+                                   <% end %>
+                                  </span>
+				  </span>
+				  </p>
+				  <p id="event_category"<% if current_user.user_type == @user_type_organisational.user_type.to_s %> style="display:none"<% else %> style="display:block"  <% end %> >
+				  <span class="field_half">
+				  <label>Event category<span class="mandatory">*</span></label>
+				  <span class="tt"><%= select("event_category", "category_id", options_from_collection_for_select(@category, "id", "event_cat_name"), :name => "select1",  :prompt => "Select category") %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Sub Category<span class="mandatory">*</span></label>
+				  <span class="tt"><%= select('event_category', 'subcategory_id',"<option value="">-Select Subcategory-</option>")%></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Unit/Flat<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event_location, :flat)  %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Street Number</label>
+				  <span class="tt"><%= text_field(:event_location , :street_number)  %></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Street Name<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event_location , :street_name)  %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Suburb/City<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event_location , :city_name)  %></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Country<span class="mandatory">*</span></label>
+				  <span class="tt"><%= select("event_location", "country_id", options_from_collection_for_select(@country, "id", "name"), :prompt => "-Select Country-") %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>State<span class="mandatory">*</span></label>
+				  <span class="tt"><%=  select('event_location','state_id', "<option>-Select State-</option>") %></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Postcode<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event_location , :post_code, :maxlength => 4)%></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_full">
+				  <label>Email<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event , :email)%></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Phone</label>
+				  <span class="tt"><%= text_field(:event , :phone ,:maxlength => 10)  %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Mobile</label>
+				  <span class="tt"><%= text_field(:event , :mobile ,:maxlength => 10)  %></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Start Date<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event , :start_date,:id => 'start_date')  %></span>
+				  </span>
+				  <span class="field_half">
+				  <label>End Date<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event , :end_date,:id => 'end_date')  %></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Start Time<span class="mandatory">*</span></label>
+				  <span class="tt time_error">
+				  <span class="f_l"><%= text_field(:event , :start_time_hours, :value=>"01", :class => "t_inpu",:maxlength => 2)  %></span>
+				  <span class="f_l"><%= text_field(:event , :start_time_minutes, :value=>"00", :class => "t_inpu",:maxlength => 2)  %></span>
+				  <span class="f_l"><select id="start_time_type" name = "event[start_time_type]"><option>AM</option><option>PM</option>
+				  </select></span></span>
+				  </span>
+				  
+				  <span class="field_half">
+				  <label>End Time<span class="mandatory">*</span></label>
+				  <span class="tt time_error">
+				  <span class="f_l"><%= text_field(:event , :end_time_hours, :value=>"01", :class => "t_inpu",:maxlength => 2)  %></span>
+				  <span class="f_l"><%= text_field(:event , :end_time_minutes, :value=>"00", :class => "t_inpu",:maxlength => 2)  %></span>
+				  <span class="f_l"><select id="end_time_type" name = "event[end_time_type]"><option>AM</option><option>PM</option>
+				  </select></span></span>
+				  </span>
+				  </p>
+		
+				  <p>
+				  <span class="field_half">
+				  <label>Spots Remaining<span class="mandatory">*</span></label>
+				  <span class="tt"><%= text_field(:event, :capacity,:maxlength => 6, :class=>"spot_rem")  %>
+				  <a href="#" class="help" title="This is the number of people who can RSVP to your event. This number updates as people book spots, to make sure your events are never overbooked."></a></span>
+				  </span>
+				  <span class="field_half">
+				  <label>Cost<span class="mandatory">*</span></label>
+				  <select id="cost_type" name = "event[cost_type]"><option value="free">Free</option><option value="Paid" >Paid</option></select>
+				  <b style="color: rgb(0, 0, 0);" id="doller">&nbsp;&nbsp;$&nbsp;&nbsp;</b><%= text_field(:event , :cost ,:maxlength => 6 ,:class => "t_inpu paid_show", :id => "div_cost")  %>
+				  </span>
+				  </p>
+		
+				 
+				
+					
+				<p class="preview"><input class="button" type="submit" name="preview" value="Preview" /><!-- <a title="Preview" href="<%=preview_event_events_url%>" class="s_all_bt" rel="[facebox]" ><span>Preview</span>&nbsp;</a> --></p>
+				<br class="clear" />
+		 	</fieldset>
+				
+						  
+						  
+				<center class="f_but_mng">
+				<input class="button" type="submit" name="submit" value="Publish Event" />
+				<input class="button" type="button" name="cancel" value="Cancel" onclick="document.location.href='/dashboards'"/>
+				</center>
+			   </div>
+			   </div>
+			  <span class="bl"></span>
+				  <span class="bottom-color"></span>
+			  <span class="br"></span>              
+		  
+</div>
+
+
+<% end %>
+</div>
+

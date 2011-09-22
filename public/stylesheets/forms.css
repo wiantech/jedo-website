@@ -1,0 +1,47 @@
+/***** messages ***/
+
+.message{ padding:10px 5px 10px 45px; line-height:1.3; color:#fff; font-weight:bold; background-repeat:no-repeat; background-position:5px 5px; margin-bottom:7px;}
+.message a{ color:#fff;}
+.message_success{ background-color:#3B8401; background-image:url(../images/message-happy.png);}
+.message_notice{ background-color:#0A7CAE;  background-image:url(../images/message-happy.png);}
+.message_warning{ background-color:#F8931F;  background-image:url(../images/message-unhappy.png);}
+.message_error{ background-color:#AE0A09;  background-image:url(../images/message-unhappy.png);}
+
+/**** forms and field sets ****/
+
+form.form fieldset{ background:#c8e9f7; border:1px solid #b9e1f2; margin-bottom:10px; padding:10px;}
+form.form fieldset h3,
+.wrapper .middle form.form fieldset h3{ background:#0a7dae; float:left;  padding:7px 10px 7px 10px; margin-left:-11px; border-radius:0px 3px 3px 0px; margin-bottom:4px; font-size:15px; color:#fff; }
+form.form fieldset div.fieldset{ clear:both;}
+
+form.form label{ color:#0a7dae; font-weight:bold; display:block; margin-bottom:1px; font-size:12px;}
+form.form label span.required{ font-size:18px; color:#b0191a;}
+form.form .help{ display:inline; border:0;}
+form.form .help img{ float:right;  border:0;}
+form.form .desc{ font-size:10px; color:#666;}
+form.form .cb{ clear:both;}
+form.form label.inline{ display:inline; font-weight:normal;}
+
+form.form .field{ margin-bottom:10px; margin-right:10px;}
+form.form .field_half{ float:left;  width:190px;}
+form.form .field_small{ float:left; width:70px;}
+form.form .field_full{ clear:both;}
+form.form .field_time_date{ width:315px; clear:both;}
+from.form .sub_field{ margin-bottom:5px;}
+
+/* inputs */
+form.form input.text, 
+form.form textarea{  border-radius:2px; border:solid 1px #bde3f3;  }
+form.form input.text{ padding:5px; font-size:12px; color:#666;width:178px;}
+form.form select{ border:4px solid #fff; max-width:180px;  border-radius:2px;}
+form.form input.text_small{ width:60px;}
+form.form input.text_micro{ width:40px;}
+form.form input.text_full{ width:500px;}
+form.form textarea { width:500px;}
+
+
+*:first-child+html form.form .middle form.form fieldset h3{ margin-left:5px;} 
+* html form.form .middle form.form fieldset h3{ margin-left:5px;}
+
+
+

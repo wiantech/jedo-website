@@ -1,0 +1,51 @@
+  <!--main container start-->
+     <div class="content">
+        <div class="left r_pass_div">
+        <div class="rounded left_box">
+        <div class="round-wrapper">
+        <span class="tl"></span>
+        <span class="top-color"></span>
+        <span class="tr"></span>
+        <div class="area-cont">
+        <div class="area-cont_mng f_pass">
+       <h3>Change your password</h3>
+         <!-- Sign in box-->
+         <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+        
+         <%= f.hidden_field :reset_password_token %>
+          
+          <span class="c_error"> <%= devise_error_messages! %></span>
+          
+          <p>
+          <span class="f_l">&nbsp;<%= f.label :password, "New password" %></span><br />
+          <span class="tt f_pass_e">  <%= f.password_field :password %> </span>
+          </p>
+           <br class="clear" />
+            <p>
+          <span class="f_l">&nbsp;<%= f.label :password_confirmation, "Confirm new password" %></span><br />
+          <span class="tt f_pass_e">  <%= f.password_field :password_confirmation %> </span>
+          </p>
+           <br class="clear" />
+          <p>
+          <span>
+           <%= f.submit "Change" ,:class=>"button" %>
+          </span>
+
+          </p>
+          <% end %>
+        <!-- End of Sign in box -->
+        <br clear="all" />
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+        </div>
+        </div>
+        </div>
+        
+        <!--middle container end-->
+
+       
+    </div>
+    <!--main container end-->

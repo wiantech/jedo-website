@@ -1,0 +1,73 @@
+<div class="rounded tab_content">
+ <div class="round-wrapper"> 
+            	<span class="tl"></span>
+                	<span class="top-color"></span>
+                <span class="tr"></span>
+                <div class="area-cont">
+                <div class="area-cont_mng">
+    <h4 class="head">Friends<span class="thing_ico"></span></h4>
+     <%= render 'search_friends' %>
+    <div class="friend_search"> <br class="clear" />
+     <ul class="f_listing">      
+       <% if !@users.blank? %>
+        <% @users.each do |friend|  %>
+         <li>
+         <a title="<%=friend.first_name %> <%=friend.last_name %>" href="#" class="user_img">
+           <% if friend.photo.exists?%> <%= image_tag friend.photo.url(:thumb) %> <% else %><img width="41" height="41" alt="<%=friend.first_name %> <%=friend.last_name %>" src="/images/no_image.jpg" />  <% end %>
+         </a>
+          <div class="f_list">
+            <h6><a title="<%=friend.first_name %>" href="#"><%=friend.first_name %> <%=friend.last_name %></a></h6>
+            <ul class="f_details">
+              <li class="f_list_txt_mng">
+              <p>
+               <%  if !friend.location.city_name.blank? %> <%=friend.location.city_name %>  <% end %>  ,  <%  if !friend.location.state.name.blank? %>  <%=friend.location.state.name %> <% end %>    
+              </p>
+              </li>                
+              <li>
+                <p class="s_f_r_mng">
+	             <a title="Send message" href="#" class="s_all_bt"><span>Send</span>&nbsp;message</a>
+		</p>
+              </li>
+              <% if friend.friend_id.blank?
+                      if friend.status !=@frd_pending_status[:value].to_s
+                    %>
+                    <li>
+                      <p class="f_r s_f_r_mng" id="send_friend_req_<%=friend.id%>">
+                        <a class="post_comment" href="javascript:void();" title="send friend request" onclick="send_friend_req('<%=friend.id%>',<%=current_user.id%>)"><span class="o_color">Send</span> friend invite</a>
+                       </p>
+                    </li>
+                    <% else %>
+                    <li>
+                      <p class="f_r s_f_r_mng">
+                        <a class="post_comment" href="#" title="Pending invites"><span class="o_color">Pending</span> <span class="o_colorPending">invites</span></a></p>
+                    </li>
+                    <% end end %>            
+            </ul>
+          </div>
+        </li>
+        <% end %>
+     </ul>
+      <div class="all_bt_hold">
+		<%= paginate @users ,:window=>6 %>
+		</div>
+       <% else %>
+      <div>
+          <% if !@search_friend.blank?  %>
+          It could not find any person with details matching your query.
+          <% else %>
+          There are no friends at the moment.
+          <% end %>
+          </div>
+      
+      <% end %>
+    </div>
+    <br class="clear" />
+                 </div>
+                 </div>
+                <span class="bl"></span>
+                	<span class="bottom-color"></span>
+                <span class="br"></span>              
+            
+</div>
+</div>
+

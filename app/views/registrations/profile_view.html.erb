@@ -1,0 +1,325 @@
+  <% if current_user.user_type == @personal.user_type %>
+      <div class="all_forms_mng show_profile">
+      <div class="rounded tab_content">
+      <div class="round-wrapper">
+      <span class="tl"></span>
+      <span class="top-color"></span>
+      <span class="tr"></span>
+      <div class="area-cont">
+      <div class="area-cont_mng">
+      <div class="all_forms">
+      <h4 class="head">Personal Profile<span class="thing_ico"></span></h4>
+      <p><a title="eidt" href="<%=edit_user_registration_path(:id=>@user.id )%>" class="s_all_bt"><span>Edit</span>&nbsp;</a></p><br />
+
+
+      <fieldset>
+          <h4> User Details</h4>
+          <p>
+          <span class="field_half">
+          <label>Email</label>
+          <span class="tt show_info"><%=@user.email%>&nbsp;</span>
+          </span>
+          <span class="field_half">
+          <label>Alternate Email</label>
+          <span class="tt show_info"><%=@user.alternate_email%>&nbsp;</span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>First Name:</label>
+          <span class="tt show_info"><%=@user.first_name%>&nbsp;</span>
+          </span>
+          <span class="field_half">
+          <label>Last name:</label>
+          <span class="tt show_info"><%=@user.last_name%>&nbsp;</span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Mobile:</label>
+          <span class="tt show_info"><%=@user.mobile%>&nbsp;</span>
+          </span>
+          <span class="field_half">
+          <label>Phone:</label>
+          <span class="tt show_info"><%=@user.phone%>&nbsp;</span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Gender:</label>
+          <span class="tt show_info"><%=@user.gender%>&nbsp;</span>
+          </span>
+          <span class="field_half">
+          <label>Marital Status:</label>
+          <span class="tt show_info"><%=@user.relationship%>&nbsp;</span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Date Of Birth:</label>
+          <span class="tt show_info"><%=@user.dob%>&nbsp;</span>
+          </span>
+          </p>
+
+
+      </fieldset>
+
+
+      <fieldset>
+          <h4>Location</h4>
+          <p>
+          <span class="field_half">
+          <label>Unit/Flat:</label>
+          <span class="tt show_info"><%=@location.flat%>&nbsp;</span>
+          </span>
+          <span class="field_half">
+          <label>Street Number:</label>
+          <span class="tt show_info"><%=@location.street_number%>&nbsp;</span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Street Name:</label>
+          <span class="tt show_info"><%=@location.street_name%>&nbsp;</span>
+          </span>
+          <span class="field_half">
+          <label>Suburb/City:</label>
+          <span class="tt show_info"><%=@location.city_name%>&nbsp;</span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Country:</label>
+          <span class="tt show_info"><%=@country.name%>&nbsp;</span>
+          </span>
+          <span class="field_half">
+          <label>State:</label>
+          <span class="tt show_info"><%= @state.name%>&nbsp;</span>
+          </span>
+          </p>
+
+          <p>
+          <span class="field_half">
+          <label>Postcode:</label>
+          <span class="tt show_info"><%=@location.postcode%>&nbsp;</span>
+          </span>
+          </p>
+      </fieldset>
+
+      <fieldset>
+          <h4>I Like</h4>
+          <center>
+          <ul class="like_list">
+          <li class="like_list_bg">
+          <ul>
+          <li><b>Category</b></li>
+          <li><b>Sub-Category </b></li>
+          <li class="like_widthmng"><b>Rank</b></li>
+          </ul>
+          </li>
+          <% if @show_interests.count == 0 %>
+          <li>Empty.</li>
+          <% else %>
+          <% for i in 0..@show_interests.length-1 do %>
+          <li class="c_bg">
+          <ul>
+          <li><%= @show_interests[i].fetch("category_name") %></li>
+          <li><%= @show_interests[i].fetch("subcategory_name") %></li>
+          <li class="like_widthmng"><%= i+1  %></li>
+          </ul>
+          </li>
+          <% end %>
+          <% end %>
+          </ul><br class="clear" />
+          </center>
+      </fieldset>
+
+        </div>
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+
+        </div>
+        </div>
+        </div>
+    <% else %>
+      <div class="all_forms_mng show_profile">
+      <div class="rounded tab_content">
+      <div class="round-wrapper">
+      <span class="tl"></span>
+      <span class="top-color"></span>
+      <span class="tr"></span>
+      <div class="area-cont">
+      <div class="area-cont_mng">
+      <div class="all_forms">
+      <h4 class="head">Organisational Profile<span class="thing_ico"></span></h4>
+      <p><a title="eidt" href="<%=edit_user_registration_path(:id=>@user.id)%>" class="s_all_bt"><span>Edit</span>&nbsp;</a></p><br />
+
+      <fieldset>
+
+      <h4> Organisation Details</h4>
+      <p>
+      <span class="field_half">
+      <label>Name:</label>
+      <span class="tt show_info"><%=@organisation.name%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Url:</label>
+      <span class="tt show_info"><%=@organisation.url%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_full">
+      <label>Description:</label>
+      <span class="tt show_info"><%=@organisation.description%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Unit/Flat:</label>
+      <span class="tt show_info"><%=@organisation.flat%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Street Number:</label>
+      <span class="tt show_info"><%=@organisation.street_name%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Street Name:</label>
+      <span class="tt show_info"><%=@organisation.street_number%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Suburb/City:</label>
+      <span class="tt show_info"><%=@organisation.city_name%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Country:</label>
+      <span class="tt show_info"><%=@organisation_country.name%>&nbsp;</span>
+      </span>
+        <span class="field_half">
+      <label>State:</label>
+      <span class="tt show_info"><%=@organisation_state.name%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Postcode:</label>
+      <span class="tt show_info"><%=@organisation.postcode%>&nbsp;</span>
+      </span>
+      </p>
+
+      </fieldset>
+      <fieldset>
+      <h4>Location </h4>
+
+      <p>
+      <span class="field_half">
+      <label>Unit/Flat:</label>
+      <span class="tt show_info"><%=@location.flat%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Street Number:</label>
+      <span class="tt show_info"><%=@location.street_number%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Street Name:</label>
+      <span class="tt show_info"><%=@location.street_name%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Suburb/City:</label>
+      <span class="tt show_info"><%=@location.city_name%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Country:</label>
+      <span class="tt show_info"><%=@country.name%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>State:</label>
+      <span class="tt show_info"><%= @state.name%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Postcode:</label>
+      <span class="tt show_info"><%=@location.postcode%>&nbsp;</span>
+      </span>
+      </p>
+
+      </fieldset>
+      <fieldset>
+      <h4>Contact Details</h4>
+
+      <p>
+      <span class="field_half">
+      <label>Email:</label>
+      <span class="tt show_info"><%=@user.email%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Alternate Email:</label>
+      <span class="tt show_info"><%=@user.alternate_email%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>First Name:</label>
+      <span class="tt show_info"><%=@user.first_name%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Last name:</label>
+      <span class="tt show_info"><%=@user.last_name%>&nbsp;</span>
+      </span>
+      </p>
+
+      <p>
+      <span class="field_half">
+      <label>Mobile:</label>
+      <span class="tt show_info"><%=@user.mobile%>&nbsp;</span>
+      </span>
+      <span class="field_half">
+      <label>Phone:</label>
+      <span class="tt show_info"><%=@user.phone%>&nbsp;</span>
+      </span>
+      </p>
+      </fieldset>
+      </div>
+        </div>
+        </div>
+        <span class="bl"></span>
+        <span class="bottom-color"></span>
+        <span class="br"></span>
+
+        </div>
+
+      </div>
+      </div>
+  <% end %>
+
+
+
+
+
+

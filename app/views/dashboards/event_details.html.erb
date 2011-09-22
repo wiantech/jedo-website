@@ -1,0 +1,213 @@
+  <div class="dark_bg">
+  <div class="menu_bg">
+  <ul class="profile_tab">
+  <li><a href="<%=my_events_dashboards_path%>">&lt; Back to events</a></li>
+  </ul>
+  <br class="clear" />
+      <div class="rounded tab_content tab_content_mng">
+      <div class="round-wrapper">
+          <span class="tl"></span>
+          <span class="top-color"></span>
+          <span class="tr"></span>
+          <div class="area-cont">
+          <div class="area-cont_mng">
+          <h4 class="head">We recommend the following events based on your interests<span class="thing_ico"></span></h4>
+          <ul class="interests">
+          <li class="event e_height">
+          <a class="eve_img" href="#" title="<%=@events[0][:title]%>">
+          <% if @event2.event.exists?%>
+              <%= image_tag @event2.event.url(:small) %>
+          <% else %>
+              <img class="profile_pic" src="/images/246x151_no_image_available.jpg" width="246" height="151" alt="" />
+          <% end %>
+          </a>
+          <div class="eve_cont">
+          <h3><a href="#"><%=@events[0][:title]%></a></h3>
+          <p class="f_like_mng"><% if(@user2[:user_type] !=@profile_type[:user_type]) %><img src="/images/f_like.png"  width="112" height="20" alt="demo" /><% end %></p>
+          <p>Starts: <%=@events[0][:start_date]%> <% if  @events[0][:start_time_hours]==0%>00<%  else %><%=@events[0][:start_time_hours]%><% end %>:<% if @events[0][:start_time_minutes]==0%>00<%  else %><%=@events[0][:start_time_minutes]%> <% end %><%=@events[0][:start_time_type]%>  </p>
+          <p>End: <%=@events[0][:end_date]%> <% if @events[0][:end_time_hours]== 0%>00<% else %><%=@events[0][:end_time_hours]%><% end %>:<% if @events[0][:end_time_minutes]== 0 %>00<% else %> <%= @events[0][:end_time_minutes] %> <% end %> <%=@events[0][:end_time_type] %></p>
+          <p>
+            <% if @uri_scheme == nil %>
+            <a href=" <%="http://"+@events[0][:url]%>" target="_blank"><%="http://"+@events[0][:url]%></a>
+            <% else %>
+            <a href="<%=@events[0][:url]%>" target="_blank"><%=@events[0][:url]%></a>
+            <% end %>
+           </p>
+          <% if (@events[0][:user_id]== current_user.id) %>
+              <span class="event_action"><a class="s_all_bt" href="<%=edit_event_path(:id=>params[:id])%>" title="Update"><span>Update</span>&nbsp;</a>&nbsp;
+              <a rel="nofollow" onclick="return confirm('Are you sure you want to delete?')" data-method="delete" href="<%=del_event_dashboards_path(:id=> @events[0][:event_id])%>" class="s_all_bt s_all_bt_ie" title="Cancel Event"><span>Cancel</span> &nbsp;Event</a></span>
+          <% end %>
+          </div>
+          <br class="clear" />
+          </li>
+          <br class="clear" />
+          </ul>
+          <% if( @events[0][:user_id]== current_user.id) && (@user2[:user_type] !=@profile_type[:user_type]) %>
+              <div class="all_bt_hold if_mng"><a class="s_all_bt" href="#" title="Invite friends"><span>Invite</span>&nbsp;friends</a></div>
+          <% elsif (@events[0][:user_id]!= current_user.id ) && (@user2[:user_type] !=@profile_type[:user_type]) %>
+              <div class="all_bt_hold"><a class="all_bt" href="#"><span>recommend</span> to friends</a> &nbsp;&nbsp;&nbsp;<a class="all_bt" href="#"><span>book</span>&nbsp;</a></div>
+<% end %><br />
+          <br class="clear" />
+          <div class="event_info_mng">
+          <ul class="info_content">
+          <li class="bold_info">
+          <ul>
+          <li>Organiser</li>
+          <li>&nbsp;</li>
+          <li>&nbsp;</li>
+          <li>Cost</li>
+          <li>Location</li>
+          <li>Suburb</li>
+          <li>Postcode</li>
+          <li>Email</li>
+          <li>Phone</li>
+          <li>Mobile</li>
+          </ul>
+          </li>
+          <li class="nor_info">
+          <ul>
+          <li>
+          <span class="f_l"><a href="#">
+          <% if @user2.photo.exists?%>
+              <%= image_tag @user2.photo.url(:thumb) %>
+          <% else %>
+              <img class="profile_pic" src="/images/no_image.jpg" width="41" height="41" alt="<%=@events[0][:first_name]%> <%=@events[0][:last_name]%>" />
+          <% end %>
+          </a></span>
+          <span class="fill_star"></span><span class="fill_star"></span><span class="fill_star"></span><span class="fill_star"></span><span class="blank_star"></span><br />
+          <a href="#"><%=@user2['first_name']%> <%=@user2['last_name']%></a>
+          </li>
+          <li>&nbsp;</li>
+          <li>&nbsp;<% if @events[0][:cost] == nil %>Free <% else%> $ <%= @events[0][:cost] %> <% end %></li>
+          <li>&nbsp; <%=@events[0][:flat]%> <%=@events[0][:street_number]%> <%=@events[0][:street_name]%></li>
+          <li>&nbsp;<%=@events[0][:city_name]%></li>
+          <li>&nbsp;<%=@events[0][:post_code]%></li>
+          <li>&nbsp;<a href="mailto:<%=@events[0][:email]%>"><%=@events[0][:email]%></a></li>
+          <li>&nbsp;<%=@events[0][:phone]%></li>
+          <li>&nbsp;<%=@events[0][:mobile]%></li>
+          </ul>
+          </li>
+          </ul>
+          <br class="clear" />
+          <p class="p_nor" style="white-space: normal;word-wrap: break-word;">
+		  <b>Description :</b>
+          <%=@events[0][:description]%>
+          <br />
+          <br />
+          </p>
+          <br />
+          <form class="comments" action="" method="get">
+          <h4 class="head">Comments<span class="thing_ico"></span></h4>
+          <p>
+          <span class="comm_user">
+          <a title="User Name" href="#" class="user_img">
+          <img width="59" height="59" alt="User" src="/images/user_img.jpg" />
+          </a>
+          <br />
+          <a class="c_user_name" title="User Name" href="#">Jane Smith</a>
+          </span>
+          <span class="f_l"><span class="comm_arrow"></span><textarea name="" rows="3"></textarea></span>
+          </p>
+
+          <p class="f_r"><a title="post comment" href="#" class="post_comment"><span class="o_color">post</span> comment</a></p>
+          <br class="clear" />
+          <br />
+          <ul class="interests">
+          <li class="event">
+          <a class="user_img" href="#" title="User Name">
+          <img width="59" height="59" src="/images/user_img.jpg" alt="User" />
+          </a>
+          <div class="f_l comm_size">
+          <p>Thinking of giving this a a shot given that I so interested but hardly ever had a chanvce to cook</p>
+          <ul class="action_but">
+          <li><a title="Reply" href="#">Reply</a>|</li>
+          <li><a title="Edit" href="#">Edit</a>|</li>
+          <li><a title="Delete" href="#">Delete</a></li>
+          </ul>
+          </div>
+          <br class="clear" />
+          </li>
+          </ul>
+          <div class="sub_comm"></div>
+          <ul class="interests sub_comm_info">
+          <li class="event">
+          <a class="user_img u_img_mng" href="#" title="User Name">
+          <img width="59" height="59" src="/images/user_img.jpg" alt="User" />
+          </a>
+          <div class="f_l comm_size">
+          <p>Thinking of giving this a a shot given that I so interested but hardly ever had a chanvce to cook</p>
+          <ul class="action_but">
+          <li><a title="Reply" href="#">Reply</a>|</li>
+          <li><a title="Edit" href="#">Edit</a>|</li>
+          <li><a title="Delete" href="#">Delete</a></li>
+          </ul>
+          </div>
+          <br class="clear" />
+          </li>
+          </ul>
+
+          <br class="clear" />
+          <br />
+          <ul class="interests">
+          <li class="event">
+          <a class="user_img" href="#" title="User Name">
+          <img width="59" height="59" src="/images/user_img.jpg" alt="User" />
+          </a>
+          <div class="f_l comm_size">
+          <p>Thinking of giving this a a shot given that I so interested but hardly ever had a chanvce to cook</p>
+          <ul class="action_but">
+          <li><a title="Reply" href="#">Reply</a>|</li>
+          <li><a title="Edit" href="#">Edit</a>|</li>
+          <li><a title="Delete" href="#">Delete</a></li>
+          </ul>
+          </div>
+          <br class="clear" />
+          </li>
+          </ul>
+          <div class="sub_comm"></div>
+          <ul class="interests sub_comm_info">
+          <li class="event">
+          <a class="user_img u_img_mng" href="#" title="User Name">
+          <img width="59" height="59" src="/images/user_img.jpg" alt="User" />
+          </a>
+          <div class="f_l comm_size">
+          <p>Thinking of giving this a a shot given that I so interested but hardly ever had a chanvce to cook</p>
+          <ul class="action_but">
+          <li><a title="Reply" href="#">Reply</a>|</li>
+          <li><a title="Edit" href="#">Edit</a>|</li>
+          <li><a title="Delete" href="#">Delete</a></li>
+          </ul>
+          </div>
+          <br class="clear" />
+          </li>
+          </ul>
+          <div class="sub_comm v_none"></div>
+          <ul class="interests sub_comm_info">
+          <li class="event">
+          <a class="user_img u_img_mng" href="#" title="User Name">
+          <img width="59" height="59" src="/images/user_img.jpg" alt="User" />
+          </a>
+          <div class="f_l comm_size">
+          <p>Thinking of giving this a a shot given that I so interested but hardly ever had a chanvce to cook</p>
+          <ul class="action_but">
+          <li><a title="Reply" href="#">Reply</a>|</li>
+          <li><a title="Edit" href="#">Edit</a>|</li>
+          <li><a title="Delete" href="#">Delete</a></li>
+          </ul>
+          </div>
+          <br class="clear" />
+          </li>
+          </ul>
+          </form>
+          </div>
+          <br class="clear" />
+          </div>
+          </div>
+          <span class="bl"></span>
+          <span class="bottom-color"></span>
+          <span class="br"></span>
+      </div>
+      </div>
+  </div>
+  </div>
+

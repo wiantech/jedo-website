@@ -1,0 +1,134 @@
+.wrapper .left_box {margin-bottom:50px;background:none;}
+.left_box { padding:0px; border:none;}
+
+.widgets_m_mng{ margin-top:-35px;}
+.widgets_top{ background:url(../images/widgets_top.png) no-repeat 0 0; width:180px; height:19px; display:block;}
+.widgets_mid{ border-left:1px #a9dff6 solid; border-right:1px #a9dff6 solid; width:178px; height:auto; display:block; background:#1a98ce;position:relative;}
+.widgets_mid .w_con_mng{position:relative; top:-10px; margin-bottom:0px; padding:0 10px;}
+.widgets_mid .w_head{top:-20px;}
+.widgets_bot{ background:url(../images/widgets_bot.png) no-repeat 0 0; width:180px; height:19px; display:block;}
+
+.wrapper .right h5{margin:0px 0 0 -10px;}/*11*/
+.wrapper .right .left_box{ padding:0 10px 5px 0;}
+.wrapper .right .r_lb_top h5{ margin:1px 0px 0px -10px;}
+
+/*IE <= 7:*/ .widgets_mid .w_con_mng { *margin-bottom:-20px; }
+.wrapper h5 {background: url(../images/design.png) no-repeat -2px -304px; margin:-0px 0px 0px -10px;}
+
+/*rounded corners start*/
+.round-wrapper{position:relative; margin:20px 0 0px 0;}
+span.top-color{ background:#2597cb; display: block; float:left; height:19px; margin: 0 20px; position: absolute; width:82%; border-top:1px #a9dff6 solid;}
+span.bottom-color{ background:#2597cb; display: block; float:left; height:19px; margin: 0 20px; position: absolute; width:82%; border-bottom:1px #a9dff6 solid; z-index:-1;}
+span.top-color{ top: -20px; z-index:-1;}
+span.bottom-color{bottom: -20px;}
+.area-cont{ padding:10px 10px; background:#2597cb; color:#FFF; border-right:1px #a9dff6 solid; border-left:1px #a9dff6 solid;}
+.area-cont_mng{ position:relative; top:-20px;}
+/*IE <= 7:*/ .area-cont_mng{ *position:inherit; *top:-20px; *height:10px;}
+/*.area-cont p{ margin:0;}*/
+span.tl, span.tr, span.bl, span.br{ display:inline-block; width:20px; height:20px; overflow:hidden;}
+span.tl{ background:url(../images/round-corner.png) no-repeat 0 0; float:left; position:absolute; top:-20px; z-index:-1;}
+span.tr{ background:url(../images/round-corner.png) no-repeat 100% 0; float:right; position:absolute; top:-20px; right:0; z-index:-1;}
+span.tl .tl{ background:url(../images/round-corner.png) no-repeat 0 0; float:left; position:absolute; top:-20px; z-index:-1;}
+span.tr .tr{ background:url(../images/round-corner.png) no-repeat 100% 0; float:right; position:absolute; top:-20px; right:0; z-index:-1;}
+span.bl{ background:url(../images/round-corner.png) no-repeat 0 100%; float:left; position:absolute; bottom:-20px; z-index:-1;}
+span.br{ background:url(../images/round-corner.png) no-repeat 100% 100%; float:right; position:absolute; bottom:-20px; right:0; z-index:-1;}
+/*rounded corners end*/
+
+.left .left_box .round-wrapper .top-color, .left .left_box .round-wrapper .bottom-color{ width:90%;}
+.left .left_box .round-wrapper .area-cont{ height:180px;}
+
+.middle .middle_box1, .middle_box2{ background:none; border:none; padding:0px;}
+.middle .middle_box1 .area-cont{ height:92px;}
+.marg_top {margin-top:32px;}
+.middle .middle_box2 .area-cont {height:17px;}
+
+.creat_event{ height:40px;}
+.creat_event .round-wrapper .area-cont{ padding:0px;}
+
+/*IE <= 7:*/ .wrapper .creat_e_ie{*margin:10px 0px 20px 0px!important;}
+.wrapper .creat_event{background:none;border:none; padding:0; margin:0px;}
+.ce_ie{ margin-top:30px;}
+/*IE <= 7:*/ .ce_ie{ *margin-top:20px; *height:30px;}
+.wrapper .creat_event .round-wrapper .top-color, .wrapper .creat_event .round-wrapper .bottom-color{ width:96%;}
+.wrapper .creat_event .area-cont, .wrapper .creat_event .round-wrapper{height:5px;}
+.wrapper .creat_event span.bottom-color, .wrapper .creat_event span.bl, .wrapper .creat_event span.br{top:2px;}
+.ce_mng{width:100%; clear:left; top:-20px;}
+
+/*IE <= 8:*/ .creat_event { margin-top:5px\9; }
+/*IE <= 7:*/ .go{*text-indent:-200px; *overflow: hidden; font-size: 0;*display:block;line-height: 0;}
+
+.header .search .tt input{ padding-top:8px; height:22px;}
+
+
+
+/*middle content*/
+.middle{ margin-bottom:20px;}
+.tab_content{border:none; background:none; top:0px; margin-top:0px; padding:0px;}
+.dark_bg{ background:none;}
+.menu_bg{ background:url(../images/menu_bg.png) no-repeat top left;}
+.profile_tab{ margin-left:21px; z-index:2; position:relative;}
+.profile_tab li .active{margin:-12px 0 0 0px; background:url(../images/a_menu_right.png) no-repeat top right; padding:0px; border:none; height:37px!important; float:left;}
+.profile_tab li .active span{background:url(../images/a_menu_left.png) no-repeat top left; padding:10px; height:17px; float:left;margin-left:-5px;}
+
+/*rounded corners start*/
+.tab_content .round-wrapper{position:relative; margin:20px 0 0px 0;}
+/*IE <= 8:*/ .tab_content .round-wrapper .round-wrapper{margin:-10px 0 0px 0px\9;}
+/*IE <= 7:*/ .tab_content .round-wrapper .round-wrapper{*margin:22px 0 0px 0px;}
+.tab_content span.top-color{ background:#fff; display: block; float:left; height:19px; margin: 0 20px; position: absolute; width:94%; border-top:3px #1A98CE solid;}
+.tab_content span.bottom-color{ background:#fff; display: block; float:left; height:19px; margin: 0 20px; position: absolute; width:94%; border-bottom:3px #1A98CE solid; z-index:-1;}
+.tab_content span.top-color{ top: -20px; z-index:0;}
+.tab_content span.bottom-color{bottom: -20px;}
+.tab_content .area-cont{padding:10px 10px; background:#fff; color:#000; border-right:3px #1A98CE solid; border-left:3px #1A98CE solid;}
+.tab_content .area-cont_mng{ position:relative; top:-15px; min-height:475px; height:auto;}
+/*.tab_content .area-cont p{ margin:0;}*/
+.tab_content span.tl, span.tr, span.bl, span.br{ display:inline-block; width:20px; height:20px; overflow:hidden;}
+.tab_content span.tl{ background:url(../images/round-corner-content.png) no-repeat 0 0; float:left; position:absolute; top:-20px; z-index:0;}
+.tab_content span.tr{ background:url(../images/round-corner-content.png) no-repeat 100% 0; float:right; position:absolute; top:-20px; right:0; z-index:0;}
+.tab_content span.bl{ background:url(../images/round-corner-content.png) no-repeat 0 100%; float:left; position:absolute; bottom:-20px; z-index:0;}
+.tab_content span.br{ background:url(../images/round-corner-content.png) no-repeat 100% 100%; float:right; position:absolute; bottom:-20px; right:0; z-index:0;}
+/*rounded corners end*/
+
+/*middle content end*/
+
+.map_info{width:100%;}
+
+
+/*friend*/
+.round-wrapper .area-cont h4.head{ background:url(../images/head_bg.png) 0 0 no-repeat; height:30px;}
+.round-wrapper .area-cont .round-wrapper .area-cont h4.head{ background:url(../images/head_bg_sub.png) 0 0 no-repeat; height:30px;}
+/*IE <= 7:*/ .s_f_block{*top:-41px;}
+/*friend end*/
+
+/*top menu*/
+.menumng{ padding:0px; background:none; margin:5px 0 0 192px;}
+.menumng li{ float:left; line-height:32px; background:#29abe2; }
+.menumng .menu_left{ background:url(../images/top_menu_left.png) 0 0px no-repeat #29abe2;}
+.menumng .menu_right{ background:url(../images/top_menu_right.png) 100% 0px no-repeat #29abe2;}
+/*top menu end*/
+.all_forms .tab_content span.bottom-color, .all_forms span.bottom-color{ z-index:0;}
+.child1 .all_forms center, .child2 .all_forms center{margin-top:40px;}
+.child1 .all_forms .tab_content center, .child2 .all_forms .tab_content center{ margin-top:0px;}
+.all_forms .tab_content .round-wrapper{margin:30px 0 0px 0;}
+.middle .dark_bg .tab_content{border:none!important;}
+.all_forms_mng .tab_content{ background:none; border:none; margin-top:0px;}
+/*IE <= 7:*/ .all_forms_mng .tab_content .area-cont_mng p{ *margin-left:3%;}
+p{margin-left:0;}
+
+/*IE <= 7:*/ .event_action .s_all_bt_mng{ *margin-top:-20px;}
+/*IE <= 7:*/ .event{ *min-height:60px;}
+/*IE <= 7:*/ .s_f_block{ *margin-top:1px;}
+/*IE <= 7:*/ .field_full, .field_half{ *line-height:30px;}
+/*IE <= 7:*/ .f_raq_bot_mng{ *top:-0px; *position:relative;}
+
+/*IE <= 7:*/ .m_check{ *float:left;}
+/*IE <= 7:*/ a.t_and_c{ *color:#0A7DAE; *float:left; *margin-left:18px; *margin-top:-2px;}
+/*IE <= 8:*/ .tandc input.tncchecke{float: left\9;left: -146px\9;position: relative\9;width:20px\9; top:-3px\9;}
+/*IE <= 7:*/ .tandc input.tnccheck{ *float:left;*left: -148px;*position: relative; *top:5px; *width:20px;}
+/*IE <= 7:*/ .tandc{ *margin-top:-20px;}
+/*IE <= 7:*/ .e_p_help_mng{ *margin-top:-20px;}
+/*IE <= 7:*/ ol#task_list li{ *left:12px!important;}
+.forgot{margin-left:90px!important;}
+
+/*IE <= 7:*/ .s_all_bt_ie{ *margin-top:-20px!important;}
+/*IE <= 7:*/ .fb_text{ *margin-top:-40px;}
+/*IE <= 7:*/ .cancle_butt{ *position:relative; *top:-10px;}
